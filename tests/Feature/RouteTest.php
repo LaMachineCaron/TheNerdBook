@@ -48,10 +48,9 @@ class RouteTest extends TestCase
 		$user_array['password'] = 'secret';
 		$user_array['password_confirmation'] = 'secret';
 		array_forget($user_array, 'remember_token');
-
 		$response = $this->call('POST', '/register', $user_array);
-
-		$response->assertRedirect('home');
+		dd($response->getContent());
+		$response->assertRedirect('/home');
 		$this->seeIsAuthenticated();
 		$this->assertDatabaseHas('users',
 			[
@@ -65,7 +64,7 @@ class RouteTest extends TestCase
 		$user = factory(User::class, 1)->create()[0];
 		$this->dontSeeIsAuthenticated();
 		$response = $this->call('POST', '/login', ['email' => $user->email, 'password' => 'secret']);
-		$response->assertRedirect('home');
+		$response->assertRedirect('/home');
 		$this->seeIsAuthenticatedAs($user);
 	}
 }
