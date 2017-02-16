@@ -16,15 +16,20 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::guest())
                         <div class="form-inline center">
-                            <div class="form-group">
-                                {!! Form::label('email:', 'Email:') !!}
-                                {!! Form::text('email',null, ['class' => 'form-control']) !!}
-                            </div>
-                            <div class="form-group">
-                                {!! Form::label('password:', 'Password:') !!}
-                                {!! Form::text('password',null, ['class' => 'form-control']) !!}
-                            </div>
-                            {!! Form::button('Login', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+                            <form role="form" method="POST" action="{{ url('/login') }}">
+                                {{ csrf_field() }}
+
+                                <div class="form-group">
+                                    {!! Form::label('email:', 'Email:') !!}
+                                    {!! Form::text('email',null, ['class' => 'form-control']) !!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('password:', 'Password:') !!}
+                                    {!! Form::input('password','password',null, ['class' => 'form-control']) !!}
+                                </div>
+
+                                {!! Form::button('Login', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+                            </form>
                         </div>
                     @else
                         <li class="dropdown">
@@ -33,12 +38,12 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    <a href="{{ url('logout') }}" onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
                                         Logout
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ url('logout') }}" method="get" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
                                 </li>

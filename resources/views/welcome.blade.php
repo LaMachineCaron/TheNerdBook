@@ -1,12 +1,12 @@
 @extends('navbar')
 
 @section('content')
-    <form role="form" method="POST" action="{{ url('/login') }}">
-        {{ csrf_field() }}
-        <input name="email">
-        <input name="password">
-        <button type="submit">Login</button>
-    </form>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+
+        </div>
+    </div>
+
     <form role="form" method="POST" action="{{ url('/register') }}">
         {{ csrf_field() }}
         <input name="first_name">
