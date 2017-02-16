@@ -19,7 +19,7 @@
         "phpunit/phpunit": "~5.7",
         "potsky/laravel-localization-helpers" : "2.5.*",
         "laravel/browser-kit-testing": "^1.0",
-        "laravel/dusk": "^1.0"
+        "laravel/dusk": "1.0.6"
     },
     "autoload": {
         "classmap": [
@@ -54,7 +54,8 @@
             "php artisan route:clear",
             "php artisan view:clear",
             "php artisan migrate:refresh --seed",
-            "php artisan optimize"
+            "php artisan optimize",
+            "php ./vendor/phpunit/phpunit/phpunit"
         ]
     },
     "config": {
