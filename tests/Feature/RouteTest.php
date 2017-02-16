@@ -28,17 +28,10 @@ class RouteTest extends TestCase
 		$response->assertStatus(200);
 	}
 
-	public function testCanAccessConnectionPage()
+	public function testLoginPageRedirection()
 	{
 		$response = $this->get('/login');
-
-		$response->assertStatus(200);
-	}
-
-	public function testCanAccessLoginPage()
-	{
-		$response = $this->get('/login');
-		$response->assertStatus(200);
+		$response->assertStatus(302);
 	}
 
 	public function testCanRegister()
@@ -49,12 +42,12 @@ class RouteTest extends TestCase
 		$user_array['password_confirmation'] = 'secret';
 		array_forget($user_array, 'remember_token');
 		$response = $this->call('POST', '/register', $user_array);
-		dd($response->getContent());
 		$response->assertRedirect('/home');
 		$this->seeIsAuthenticated();
 		$this->assertDatabaseHas('users',
 			[
-				'name' => $user_array['name'],
+                'first_name' => $user_array['first_name'],
+				'last_name' => $user_array['last_name'],
 				'email' => $user_array['email']
 			]);
 	}
