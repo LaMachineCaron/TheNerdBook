@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use phpDocumentor\Reflection\Types\This;
 
 class User extends Authenticatable
 {
@@ -17,9 +18,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'first_name',
+    	'last_name',
     	'email',
-    	'password',
+    	'password'
     ];
 
     /**
@@ -30,5 +32,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     	'remember_token',
-    ];
+    ]; 
+    
+    public function followers() {
+    	return $this->belongsToMany(User::class, 'follows', 'user_id', 'follower_id');
+    }
+    
+    public function following() {
+    	return $this->belongsToMany(User::class, 'follows', 'follower_id', 'user_id');
+    }
+    
+	public function comments() {
+    	return $this->hasMany(Comment::class);
+    }
+    
+    public function posts() {
+    	return $this->hasMany(Post::class);
+    }
 }
