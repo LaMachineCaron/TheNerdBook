@@ -43,7 +43,7 @@ class RouteTest extends TestCase
 
 	public function testCanRegister()
 	{
-		/*$user = factory(User::class, 1)->make()[0];
+		$user = factory(User::class, 1)->make()[0];
 		$user_array = $user->toArray();
 		$user_array['password'] = 'secret';
 		$user_array['password_confirmation'] = 'secret';
@@ -51,13 +51,13 @@ class RouteTest extends TestCase
 
 		$response = $this->call('POST', '/register', $user_array);
 
-		$response->assertRedirect('/');
+		$response->assertRedirect('/home');
 		$this->seeIsAuthenticated();
 		$this->assertDatabaseHas('users',
 			[
 				'name' => $user_array['name'],
 				'email' => $user_array['email']
-			]);*/
+			]);
 	}
 
 	public function testCanLogin()
