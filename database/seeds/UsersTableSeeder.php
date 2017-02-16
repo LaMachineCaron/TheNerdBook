@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use App\Models\User;
+use App\User;
 
 class UsersTableSeeder extends Seeder
 {
@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->delete();
 
         for ($i=0; $i < 16; $i++) { 
-            factory(App\Models\User::class)->create();
+            factory(User::class)->create();
         }
     }
 }
