@@ -48,9 +48,8 @@ class RouteTest extends TestCase
 		$user_array['password'] = 'secret';
 		$user_array['password_confirmation'] = 'secret';
 		array_forget($user_array, 'remember_token');
-
 		$response = $this->call('POST', '/register', $user_array);
-
+		dd($response->getContent());
 		$response->assertRedirect('/home');
 		$this->seeIsAuthenticated();
 		$this->assertDatabaseHas('users',
