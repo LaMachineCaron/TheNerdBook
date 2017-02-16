@@ -54,15 +54,3 @@ $factory->define(App\Models\Comment::class, function (Faker\Generator $faker) {
         'likes' => random_int(0, 100),
     ];
 });
-
-/**
- * Follow factory
- *
- * @var \Illuminate\Database\Eloquent\Factory $factory
- */
-$factory->define(App\Models\Follow::class, function (Faker\Generator $faker) {
-    return [
-        'user_id' => factory(App\User::class)->create()->id,
-        'follower_id' => factory(App\User::class)->create()->id,
-    ];
-});
