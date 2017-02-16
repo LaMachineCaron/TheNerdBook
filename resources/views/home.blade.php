@@ -1,14 +1,32 @@
-<div class="container">
-    <a href="{{ url('/logout') }}">Logout</a>
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+@extends('navbar')
 
-                <div class="panel-body">
-                    You are logged in!
+@section('content')
+        <div class="row">
+            <div class="col-xs-12 col-sm-4">
+                <div id="youtube-panel" class="panel panel-default">
+                    <div class="panel-heading">
+                        Youtube
+                    </div>
+                    <div class="panel-body">
+                        
+                    </div>
                 </div>
             </div>
+
+            <div class="col-xs-12 col-sm-4">
+
+            </div>
+
+            <div class="col-xs-12 col-sm-4">
+                <div id="twitch-panel" class="panel panel-default">
+                    <div class="panel-heading">
+                        Twitch
+                    </div>
+                    <div class="panel-body">
+
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
-</div>
+@endsection
