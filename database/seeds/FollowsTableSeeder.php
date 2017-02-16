@@ -13,14 +13,11 @@ class FollowsTableSeeder extends Seeder
     {
         DB::table('follows')->delete();
 
-        $user->
-
-        for ($i=0; $i < 16; $i++) { 
+        for ($i=0; $i < 16; $i++) {
+        	$users = User::inRandomOrder()->limit(2)->get(); 
             DB::table('follows')->insert([
-	            'first_name' => str_random(10),
-	            'last_name' => str_random(10),
-	            'email' => str_random(10).'@gmail.com',
-	            'password' => bcrypt('secret'),
+	            'user_id' => $users->get(0)->id,
+	            'follower_id' => $users->get(1)->id,
         	]);
         }
     }
