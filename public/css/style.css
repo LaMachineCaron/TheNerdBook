@@ -1,0 +1,92 @@
+body {
+    padding-top: 51px;
+}
+.text-center {
+    padding-top: 20px;
+}
+.col-xs-12 {
+    background-color: #fff;
+}
+
+.col-xs-9 {
+    background-color: #fff;
+}
+
+#sidebar {
+    height: auto;
+    padding-right: 0;
+    padding-top: 20px;
+}
+#sidebar .nav {
+    width: 95%;
+}
+#sidebar li {
+    border:0 #f2f2f2 solid;
+    border-bottom-width:1px;
+}
+
+/* collapsed sidebar styles */
+.row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+}
+
+#contenu_page {
+    margin-top: 15px;
+}
+
+/* Affiche toujours le bouton du menu */
+@media (max-width: 360px) {
+
+}
+
+/* Affiche toujours le bouton du menu */
+@media (min-width: 768px) {
+
+}
+
+Form {
+    margin-bottom: 0;
+}
+
+.panel-heading > h2 {
+    text-align: center;
+}
+
+.options-panel {
+    margin-top: 15px;
+}
+
+.panel-body {
+    word-break: break-all;
+}
+
+.center {
+    margin: auto;
+    padding: 10px;
+}
+
+.navbar-default {
+    background-color: #0d1b2a;
+    color: #e8e4e9;
+}
+
+.icon-bar {
+    background-color: #e8e4e9;
+}
+
+.navbar-toggle:hover {
+    background-color: #10293b;
+}
+
+#youtube-panel>.panel-heading {
+    background-color: #cd201f;
+    color: #e8e4e9;
+}
+
+#twitch-panel>.panel-heading {
+    background-color: #6441A4;
+    color: #e8e4e9;
+}
