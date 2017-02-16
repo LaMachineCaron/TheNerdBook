@@ -1,7 +1,5 @@
-@extends('layouts.app')
-
-@section('content')
 <div class="container">
+    <a href="{{ url('/logout') }}">Logout</a>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             {!! Form::open(['action'=> 'HomeController@test', 'method'=>'get', 'class'=>'form navbar-form navbar-right searchform']) !!}
@@ -21,4 +19,3 @@
         </div>
     </div>
 </div>
-@endsection

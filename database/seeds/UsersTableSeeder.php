@@ -15,8 +15,6 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->delete();
 
-        for ($i=0; $i < 16; $i++) { 
-            factory(User::class)->create();
-        }
+        factory(User::class, 16)->create();
     }
 }

@@ -15,8 +15,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('login', function () {
+    return Redirect::to('/');
+});
 
-Route::get('/home', 'HomeController@index');
+Route::get('register', function () {
+    return Redirect::to('/');
+});
 
-Route::get('/test', 'HomeController@test');
+Route::post('login', 'Auth\LoginController@login');
+
+Route::get('logout', 'Auth\LoginController@logout');
+
+Route::post('register', 'Auth\RegisterController@register');
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::get('home', 'HomeController@index');
+    Route::get('/test', 'HomeController@test');
+});

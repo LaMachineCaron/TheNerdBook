@@ -35,11 +35,11 @@ class HomeController extends Controller
 
         $users = User::all();
 
-        $foundUsers = User::where('first_name', 'LIKE', '%'.$input.'%')
-                            ->orWhere('last_name', 'LIKE', '%'.$input.'%')
+        $foundUsers = User::where('first_name', 'LIKE', $input.'%')
+                            ->orWhere('last_name', 'LIKE', $input.'%')
                             ->get();
 
 
-        return view('test', compact('foundUsers'));
+        return view('test', compact('foundUsers', 'input'));
     }
 }
