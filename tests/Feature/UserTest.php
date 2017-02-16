@@ -36,7 +36,7 @@ class UserTest extends TestCase
         $user->email = "alex.caron@gmail.com";
         $user->password = bcrypt("LaMachineCaron");
         $this->assertTrue($user->save());
-        $this->seeInDatabase('users', [
+        $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'first_name' => $user->first_name,
             'last_name' => $user->last_name,

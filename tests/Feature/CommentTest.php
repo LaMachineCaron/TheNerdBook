@@ -34,7 +34,7 @@ class CommentTest extends TestCase
         $comment->content = "Hahaha j'adore!!!";
         $comment->likes = 7;
         $this->assertTrue($comment->save());
-        $this->seeInDatabase('comments', [
+        $this->assertDatabaseHas('comments', [
             'user_id' => $comment->user_id,
             'post_id' => $comment->post_id,
             'content' => $comment->content,
