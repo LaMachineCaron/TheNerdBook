@@ -18,3 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::post('/oauthtoken','TwitchAPIS@connection');
+
+Route::get('/oauthtoken','TwitchAPIS@loginTwitch');

@@ -88,6 +88,10 @@
                     <a href="https://laravel-news.com">News</a>
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <form id="login-form" action="{{ url('/oauthtoken') }}" method="POST">
+                        {{ csrf_field() }}
+                        <button type="submit"> connection twitch</button>
+                    </form>
                 </div>
             </div>
         </div>
