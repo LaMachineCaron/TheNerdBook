@@ -6,9 +6,10 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
-        "laravel/framework": "5.4.*",
-        "caouecs/laravel-lang": "~3.0",
         "barryvdh/laravel-ide-helper": "2.*",
+        "caouecs/laravel-lang": "~3.0",
+        "google/apiclient": "^2.1",
+        "laravel/framework": "5.4.*",
         "laravelcollective/html": "5.4.x",
         "zizaco/entrust": "5.2.x-dev"
     },

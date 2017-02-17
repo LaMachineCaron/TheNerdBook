@@ -18,3 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/youtube', 'YoutubeController@index')->name('youtubeIndex');
+Route::get('/youtube/callback', 'YoutubeController@callback')->name('youtubeCallback');
