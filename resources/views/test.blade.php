@@ -4,9 +4,21 @@
 
 @if(!empty($foundUsers))
     @foreach($foundUsers as $user)
+
     <div>
-        <h2>{{$user->first_name}} {{$user->last_name}}</h2>
+        <a href="{{ url('user/'.$user->id) }}">
+            <h2>{{$user->first_name}} {{$user->last_name}}</h2>
+        </a>
         <p>{{$user->email}}</p>
+
+        @if (Auth::user()->id == $user->id)
+
+        @elseif (Auth::user()->following()->where('id', $user->id)->count())
+            <a href="{{ url('follow/'.$user->id) }}">unfollow </a>
+        @else
+            <a href="{{ url('follow/'.$user->id) }}">follow </a>
+        @endif
+
     </div>
 
     @endforeach

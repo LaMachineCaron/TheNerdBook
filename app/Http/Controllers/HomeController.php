@@ -37,6 +37,7 @@ class HomeController extends Controller
 
         $foundUsers = User::where('first_name', 'LIKE', $input.'%')
                             ->orWhere('last_name', 'LIKE', $input.'%')
+                            ->orderBy('first_name','ASC')
                             ->get();
 
 
