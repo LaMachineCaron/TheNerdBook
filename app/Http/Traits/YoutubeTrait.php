@@ -23,7 +23,7 @@ trait YoutubeTrait {
 	 *
 	 * @return string  The URL for the Youtube connection
 	 */
-	public function generateUrl() {
+	public function generateYoutubeUrl() {
 		$client = $this->getGoogleClient();
 		return $client->createAuthUrl();
 	}
@@ -42,7 +42,7 @@ trait YoutubeTrait {
 	 *
 	 * @return array  The Google Client access token
 	 */
-	public function getAccessToken(): array {
+	public function getAccessTokenYoutube(): array {
 		$client = $this->getGoogleClient();
 		$client->setAccessToken(Auth::user()->getAccessTokenYoutube());
 		if($client->isAccessTokenExpired()) {
