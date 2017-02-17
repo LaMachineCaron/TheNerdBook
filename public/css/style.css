@@ -59,10 +59,6 @@ Form {
     margin-top: 15px;
 }
 
-.panel-body {
-    word-break: break-all;
-}
-
 .center {
     margin: auto;
     padding: 10px;
@@ -93,4 +89,24 @@ Form {
 
 #test {
     background-color: #0d1b2a;
+}
+
+#btn-youtube-connect {
+    background-color: #cd201f;
+    color: #e8e4e9;
+}
+
+#btn-twitch-connect {
+    background-color: #6441A4;
+    color: #e8e4e9;
+}
+
+.video_description>p {
+    margin: 0;
+}
+
+.spy-youtube {
+    height: 80%;
+    position: relative;
+    overflow-y: scroll;
 }
