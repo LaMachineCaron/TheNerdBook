@@ -10,3 +10,4 @@ Homestead.yaml
 _ide_helper.php
 .phpstorm.meta.php
 composer.lock
+/resources/views/vendor/*

@@ -32,4 +32,6 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::group(['middleware' => ['auth']], function() {
     Route::get('home', 'HomeController@index');
 	Route::get('/youtube/callback', 'YoutubeController@callback')->name('youtubeCallback');
+    Route::get('/twitch','TwitchAPIS@connection');
+    Route::get('/oauthtoken','TwitchAPIS@loginTwitch');
 });
