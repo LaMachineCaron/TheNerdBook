@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
         <div class="row">
             <div class="col-xs-12 col-sm-4">
                 <div id="youtube-panel" class="panel panel-default">
@@ -16,11 +17,11 @@
                             <div  id="video_list" >
                                 <ul class="list-group">
                                     <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-4">
-                                                <img width="100%" height="100%" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
+                                        <div class="row" style="height: 140px">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                <img width="140px" height="140px" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
                                             </div>
-                                            <div class="col-md-8 col-lg-8 video_description">
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 video_description">
                                                 <h4>Title</h4>
                                                 <p>Pseudo</p>
                                                 <p>Il y a 4 sec</p>
@@ -29,11 +30,11 @@
                                         </div>
                                     </li>
                                     <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-4">
-                                                <img width="100%" height="100%" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
+                                        <div class="row" style="height: 140px">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                <img width="140px" height="140px" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
                                             </div>
-                                            <div class="col-md-8 col-lg-8 video_description">
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 video_description">
                                                 <h4>Title</h4>
                                                 <p>Pseudo</p>
                                                 <p>Il y a 4 sec</p>
@@ -42,11 +43,11 @@
                                         </div>
                                     </li>
                                     <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-4">
-                                                <img width="100%" height="100%" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
+                                        <div class="row" style="height: 140px">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                <img width="140px" height="140px" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
                                             </div>
-                                            <div class="col-md-8 col-lg-8 video_description">
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 video_description">
                                                 <h4>Title</h4>
                                                 <p>Pseudo</p>
                                                 <p>Il y a 4 sec</p>
@@ -55,11 +56,11 @@
                                         </div>
                                     </li>
                                     <li class="list-group-item">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-4">
-                                                <img width="100%" height="100%" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
+                                        <div class="row" style="height: 140px">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                                <img width="140px" height="140px" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
                                             </div>
-                                            <div class="col-md-8 col-lg-8 video_description">
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 video_description">
                                                 <h4>Title</h4>
                                                 <p>Pseudo</p>
                                                 <p>Il y a 4 sec</p>
@@ -77,13 +78,7 @@
             </div>
 
             <div class="col-xs-12 col-sm-4">
-				{!! Form::open(['action'=> 'HomeController@test', 'method'=>'get', 'class'=>'form navbar-form navbar-right searchform']) !!}
-				{!! Form::text('search', null,
-									   array('required',
-											'class'=>'form-control',
-											'placeholder'=>'Rechercher un usager')) !!}
-				{!! Form::button('Rechercher',['type' => 'submit', 'class'=>'btn btn-info']) !!}
-				{!! Form::close() !!}
+
             </div>
 
             <div class="col-xs-12 col-sm-4">

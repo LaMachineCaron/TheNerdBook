@@ -1,0 +1,23 @@
+/* --------------- Responsive Fixes --------------- */
+/* small device */
+@media (max-width: 767px) {
+    .device-big {
+        display: none;
+    }
+    .device-small {
+        display: block;
+    }
+}
+/* big device */
+@media only screen and (min-width : 768px) {
+    .device-big, .tab-content > .tab-pane {
+        display: block;
+    }
+    .device-small {
+        display: none;
+    }
+    .tab-content > .tab-pane {
+        display: block;
+    }
+}
+/* --------------- / Responsive Fixes --------------- */
