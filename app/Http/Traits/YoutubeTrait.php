@@ -48,7 +48,7 @@ trait YoutubeTrait {
 		if($client->isAccessTokenExpired()) {
 			$new_token = $client->fetchAccessTokenWithRefreshToken(Auth::user()->token_youtube);
 			$client->setAccessToken($new_token);
-			Auth::user()->setAccessToken($new_token);
+			Auth::user()->setAccessTokenYoutube($new_token);
 		}
 		return $client->getAccessToken();
 	}
