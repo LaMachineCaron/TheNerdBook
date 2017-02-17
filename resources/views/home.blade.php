@@ -77,7 +77,13 @@
             </div>
 
             <div class="col-xs-12 col-sm-4">
-
+				{!! Form::open(['action'=> 'HomeController@test', 'method'=>'get', 'class'=>'form navbar-form navbar-right searchform']) !!}
+				{!! Form::text('search', null,
+									   array('required',
+											'class'=>'form-control',
+											'placeholder'=>'Rechercher un usager')) !!}
+				{!! Form::button('Rechercher',['type' => 'submit', 'class'=>'btn btn-info']) !!}
+				{!! Form::close() !!}
             </div>
 
             <div class="col-xs-12 col-sm-4">

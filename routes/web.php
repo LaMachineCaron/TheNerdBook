@@ -23,6 +23,10 @@ Route::get('register', function () {
     return Redirect::to('/');
 });
 
+Route::get('user/{id}', 'UserController@show');
+
+Route::get('follow/{id}', 'UserController@follow');
+
 Route::post('login', 'Auth\LoginController@login');
 
 Route::get('logout', 'Auth\LoginController@logout');
@@ -31,5 +35,5 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('home', 'HomeController@index');
+    Route::get('/test', 'HomeController@test');
 });
-
