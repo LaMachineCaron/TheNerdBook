@@ -101,7 +101,7 @@ class UserController extends Controller
         if (isset($connectedUser)) {
             $user = User::find($id);
             if (isset($user)) {
-                if (!$user->id == $connectedUser->id) {
+                if ($user->id != $connectedUser->id) {
                     $connectedUser->following()->toggle([$user->id]);
                     return Redirect::back();
                 } else {
