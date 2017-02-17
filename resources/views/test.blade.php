@@ -11,12 +11,12 @@
         </a>
         <p>{{$user->email}}</p>
 
-        @if (Auth::user()->id == $user->id)
-
-        @elseif (Auth::user()->following()->where('id', $user->id)->count())
-            <a href="{{ url('follow/'.$user->id) }}">unfollow </a>
-        @else
-            <a href="{{ url('follow/'.$user->id) }}">follow </a>
+        @if (Auth::user()->id != $user->id)
+	        @if (Auth::user()->following()->where('id', $user->id)->count())
+	            <a href="{{ url('follow/'.$user->id) }}">unfollow </a>
+	        @else
+	            <a href="{{ url('follow/'.$user->id) }}">follow </a>
+	        @endif
         @endif
 
     </div>
