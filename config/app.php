@@ -90,7 +90,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -236,6 +236,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'TwitchApi' => Zarlach\TwitchApi\Facades\TwitchApiServiceFacade::class,
 
+        'Form' => 'Collective\Html\FormFacade',
+        'Html' => 'Collective\Html\HtmlFacade',
     ],
 
 ];
