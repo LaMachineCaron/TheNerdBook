@@ -14,30 +14,20 @@ class TwitchAPIS extends Controller
 
     public function connection(){
         return Redirect(TwitchApi::getAuthenticationUrl());
-        //TwitchApi::getAccessToken();
     }
 
     public function loginTwitch(Request $request){
-
-        /*$token_key = $request->session()->get('authToken');
-        if ($token_key == $request['state']) {
-            $ch = curl_init(TwitchApi::getAuthenticationUrl());
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            $data = curl_exec($ch);
-            $response = json_decode($data, true);
-            $accessToken = $response['access_token'];
-            dd($accessToken);
-        }*/
-
         $token = $this->auth($request['code']);
 
-        //$token['refresh_token'];
+        $user = Auth::user();
 
-        return view('testConnectionTwitch');
+        $user->token_twitch = $token['refresh_token'];
+        $user->save();
+
+        return redirect()->back();
     }
 
     private function auth($code){
-
         $auth = new Authentication();
 
         // GuzzleHttp Client with default parameters.

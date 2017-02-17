@@ -31,6 +31,6 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('home', 'HomeController@index');
-    Route::post('/oauthtoken','TwitchAPIS@connection');
+    Route::get('/twitch','TwitchAPIS@connection');
     Route::get('/oauthtoken','TwitchAPIS@loginTwitch');
 });

@@ -37,12 +37,6 @@
                         </form>
                     </div>
                 </div>
-                <div class="row">
-                    <form id="login-form" action="{{ url('/oauthtoken') }}" method="POST">
-                        {{ csrf_field() }}
-                        <button type="submit"> connection twitch</button>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
