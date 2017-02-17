@@ -35,5 +35,5 @@ Route::post('register', 'Auth\RegisterController@register');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::get('home', 'HomeController@index');
+    Route::get('/test', 'HomeController@test');
 });
-
