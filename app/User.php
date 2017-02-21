@@ -11,6 +11,10 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $table = 'users';
+
+    protected $access_token_youtube = null;
+
+    protected $access_token_twitch = null;
     
     /**
      * The attributes that are mass assignable.
@@ -48,5 +52,21 @@ class User extends Authenticatable
     
     public function posts() {
     	return $this->hasMany(Post::class);
+    }
+
+    public function getAccessTokenYoutube() {
+        return $this->access_token_youtube;
+    }
+
+    public function setAccessTokenYoutube(String $access_token) {
+        $this->access_token_youtube = $access_token;
+    }
+
+    public function getAccessTokenTwitch() {
+        return $this->access_token_twitch;
+    }
+
+    public function setAccessTokenTwitch(String $access_token) {
+        $this->access_token_twitch = $access_token;
     }
 }

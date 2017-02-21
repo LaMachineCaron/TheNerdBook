@@ -6,7 +6,6 @@
             <h4 class="text-center">Bienvenue sur le site officiel des nerds</h4>
             <h4 class="text-center">Veuillez vous connecter</h4>
         </div>
-
         <div class="panel-body">
             <div class="col-md-12">
                 <div class="row">
