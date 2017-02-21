@@ -38,7 +38,6 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
         'user_id' => App\User::inRandomOrder()->first()->id,
         'url' => $faker->url,
         'content' => $faker->realText(50, 2),
-        'likes' => random_int(0, 100),
     ];
 });
 
@@ -52,6 +51,5 @@ $factory->define(App\Models\Comment::class, function (Faker\Generator $faker) {
         'user_id' => App\User::inRandomOrder()->first()->id,
         'post_id' => App\Models\Post::inRandomOrder()->first()->id,
         'content' => $faker->realText(100, 2),
-        'likes' => random_int(0, 100),
     ];
 });
