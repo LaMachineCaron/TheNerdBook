@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Traits\YoutubeTrait;
 use Auth;
 use Illuminate\Http\Request;
-
 use App\User;
 use Illuminate\Support\Facades\Input;
+
 
 class HomeController extends Controller
 {
