@@ -32,13 +32,11 @@ class CommentTest extends TestCase
         $comment->user_id = 1;
         $comment->post_id = 1;
         $comment->content = "Hahaha j'adore!!!";
-        $comment->likes = 7;
         $this->assertTrue($comment->save());
         $this->assertDatabaseHas('comments', [
             'user_id' => $comment->user_id,
             'post_id' => $comment->post_id,
             'content' => $comment->content,
-            'likes' => $comment->likes,
         ]);
     }
 }
