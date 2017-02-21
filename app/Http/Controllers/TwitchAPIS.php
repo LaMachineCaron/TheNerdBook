@@ -64,4 +64,6 @@ class TwitchAPIS extends Controller
         return json_decode($response->getBody(), true);
     }
 
+
+
 }
