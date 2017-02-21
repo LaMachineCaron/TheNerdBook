@@ -16,7 +16,7 @@ class TwitchController extends Controller
 	 * @param Request  $request  Request containing the authentication code
 	 * @return \Illuminate\Http\RedirectResponse  Goes back
 	 */
-	public function loginTwitch(Request $request){
+	public function callback(Request $request){
 		$token = $this->authTwitch($request['code']);
 
 		$user = Auth::user();
