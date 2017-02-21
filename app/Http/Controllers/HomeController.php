@@ -35,7 +35,7 @@ use YoutubeTrait;
         if ($this->isLoggedInYoutube()) {
             $data += ['videos' => ''];
         } else {
-            $data += ['youtube_url' => $this->generateUrl()];
+            $data += ['youtube_url' => $this->generateYoutubeUrl()];
         }
 
         return view('home', $data);

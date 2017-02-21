@@ -22,7 +22,7 @@
         <div class="tab-content">
             <div id="youtube-mobile" role="tabpanel" class="tab-pane active col col-xs-12 col-sm-12">
                 <div id="youtube-section" class="panel-body spy-youtube">
-                    @if (Auth::user()->token_youtube)
+                    @if (!Auth::user()->token_youtube)
                         <div id="video_list" >
                             <ul class="list-group">
                                 <li class="list-group-item">
@@ -93,8 +93,79 @@
 
             <div id="twitch-mobile" role="tabpanel" class="tab-pane col-xs-12 col-sm-12">
                 <div id="twitch-section" class="panel-body spy-twitch">
-                    @if (Auth::user()->token_youtube)
-
+                    @if (!Auth::user()->token_youtube)
+						  <div id="video_list" >
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="row" style="height: 80px">
+                                        <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
+                                            <img width="80px" height="80px" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
+                                        </div>
+                                        <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
+                                            <h4>Dragonbax</h4>
+											<p>Best Streamer NA<p>
+                                            <p>Playing: Grand Theft Auto V</p>
+                                        </div>
+                                    </div>
+                                </li>
+								
+														  <div id="video_list" >
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="row" style="height: 80px">
+                                        <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
+                                            <img width="80px" height="80px" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
+                                        </div>
+                                        <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
+                                            <h4>Streamer 2</h4>
+											<p>COME SHARE LUNCH KAPPA<p>
+                                            <p>Playing: Social Eating</p>
+                                        </div>
+                                    </div>
+                                </li>
+								
+														  <div id="video_list" >
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="row" style="height: 80px">
+                                        <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
+                                            <img width="80px" height="80px" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
+                                        </div>
+                                        <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
+                                            <h4>Streamer 3</h4>
+											<p>DOTA 2 TYPE !GV FOR GIVEAWAY<p>
+                                            <p>Playing: DOTA 2</p>
+                                        </div>
+                                    </div>
+                                </li>
+								
+							                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="row" style="height: 80px">
+                                        <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
+                                            <img width="80px" height="80px" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
+                                        </div>
+                                        <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
+                                            <h4>Streamer 4</h4>
+											<p>Late night CS:GO play !lk<p>
+                                            <p>Playing: Counter-Strike:Global Offensive </p>
+                                        </div>
+                                    </div>
+                                </li>
+								
+								                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <div class="row" style="height: 80px">
+                                        <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
+                                            <img width="80px" height="80px" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
+                                        </div>
+                                        <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
+                                            <h4>Streamer 5</h4>
+											<p>Training RL<p>
+                                            <p>Playing: Rocket League </p>
+                                        </div>
+                                    </div>
+                                </li>
                     @else
                         <a href="#" id="btn-twitch-connect" class="btn btn-default btn-lg center">Connexion Twitch</a>
                     @endif
