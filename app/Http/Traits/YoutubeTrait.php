@@ -71,4 +71,20 @@ trait YoutubeTrait {
 		$client->setRedirectUri(route('youtubeCallback'));
 		return $client;
 	}
+
+	/**
+	* Get the videos from your subs
+	*/
+	public function getSubVideos() {
+		$this->getSubId();
+	}
+
+	/**
+	* Get an array of your sub id
+	*/
+	private function getSubId() {
+		$client = $this->getGoogleClient();
+		$response = $client->get('https://www.googleapis.com/youtube/v3/subscriptions', ['part' => 'snippet', 'mine' => true]);
+		dd($response);
+	}
 }
