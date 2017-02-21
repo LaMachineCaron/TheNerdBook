@@ -15,6 +15,13 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->delete();
 
-        factory(User::class, 16)->create();
+        $user = new User();
+        $user->first_name = "Alex";
+        $user->last_name = "Caron";
+        $user->email = "alexandre@info.com";
+        $user->password = bcrypt("allo123");
+        $user->save();
+        
+        factory(User::class, 15)->create();
     }
 }
