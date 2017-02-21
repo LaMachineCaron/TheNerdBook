@@ -6,6 +6,7 @@ use Auth;
 use Google_Client;
 use Google_Service_YouTube;
 use Illuminate\Auth\Authenticatable;
+use GuzzleHttp\Client;
 
 /**
  * Class YoutubeTrait
@@ -60,6 +61,9 @@ trait YoutubeTrait {
 	 */
 	private function getGoogleClient(): Google_Client {
 		$client = new Google_Client();
+		$client->setHttpClient(new Client(array(
+			'verify' => false,
+		)));
 		$client->setAuthConfig(public_path('client_secrets.json'));
 		$client->setAccessType("offline");        // offline access
 		$client->setIncludeGrantedScopes(true);   // incremental auth

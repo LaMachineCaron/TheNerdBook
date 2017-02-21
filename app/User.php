@@ -58,7 +58,7 @@ class User extends Authenticatable
         return $this->access_token_youtube;
     }
 
-    public function setAccessTokenYoutube(String $access_token) {
+    public function setAccessTokenYoutube(array $access_token) {
         $this->access_token_youtube = $access_token;
     }
 
