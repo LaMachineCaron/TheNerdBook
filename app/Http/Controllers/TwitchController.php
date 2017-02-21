@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Zarlach\TwitchApi\API\Authentication;
@@ -9,8 +10,10 @@ use Zarlach\TwitchApi\API\Authentication;
 class TwitchController extends Controller
 {
 	/**
-	 * @param Request $request
-	 * @return \Illuminate\Http\RedirectResponse
+	 * Callback for the Twitch authentication
+	 *
+	 * @param Request  $request  Request containing the authentication code
+	 * @return \Illuminate\Http\RedirectResponse  Goes back
 	 */
 	public function loginTwitch(Request $request){
 		$token = $this->auth($request['code']);
@@ -25,8 +28,10 @@ class TwitchController extends Controller
 	}
 
 	/**
-	 * @param $code
-	 * @return mixed
+	 * Authenticates the user on the Twitch API using a code
+	 *
+	 * @param string  $code  The Twitch API code for authentication
+	 * @return array  Array containing the refresh token and access token
 	 */
 	private function auth($code){
 		$auth = new Authentication();
