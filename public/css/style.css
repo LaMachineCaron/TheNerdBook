@@ -37,16 +37,6 @@ body {
     margin-top: 15px;
 }
 
-/* Affiche toujours le bouton du menu */
-@media (max-width: 360px) {
-
-}
-
-/* Affiche toujours le bouton du menu */
-@media (min-width: 768px) {
-
-}
-
 Form {
     margin-bottom: 0;
 }
@@ -57,10 +47,6 @@ Form {
 
 .options-panel {
     margin-top: 15px;
-}
-
-.panel-body {
-    word-break: break-all;
 }
 
 .center {
@@ -77,20 +63,11 @@ Form {
     background-color: #e8e4e9;
 }
 
-.navbar-toggle:hover {
-    background-color: #10293b;
-}
-
-#youtube-panel>.panel-heading {
-    background-color: #cd201f;
-    color: #e8e4e9;
-}
-
-#twitch-panel>.panel-heading {
-    background-color: #6441A4;
-    color: #e8e4e9;
-}
-
 #test {
     background-color: #0d1b2a;
+}
+
+
+.navbar-toggle:hover {
+    background-color: #10293b;
 }

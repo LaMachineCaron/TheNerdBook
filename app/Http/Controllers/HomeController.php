@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\YoutubeTrait;
 use Illuminate\Http\Request;
+
+use App\User;
+use Illuminate\Support\Facades\Input;
 
 class HomeController extends Controller
 {
+
+use YoutubeTrait;
+
     /**
      * Create a new controller instance.
      *
@@ -23,6 +30,29 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data = [];
+
+        if ($this->isLoggedInYoutube()) {
+            $data += ['videos' => ''];
+        } else {
+            $data += ['youtube_url' => $this->generateUrl()];
+        }
+
+        return view('home', $data);
+    }
+
+    public function test()
+    {
+        $input = Request::input('search');
+
+        $users = User::all();
+
+        $foundUsers = User::where('first_name', 'LIKE', $input.'%')
+                            ->orWhere('last_name', 'LIKE', $input.'%')
+                            ->orderBy('first_name','ASC')
+                            ->get();
+
+
+        return view('test', compact('foundUsers', 'input'));
     }
 }
