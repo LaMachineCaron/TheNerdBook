@@ -92,10 +92,10 @@
                         Twitch
                     </div>
                     <div class="panel-body text-center">
-                        @if (Auth::user()->token_youtube)
-
+                        @if (!Auth::user()->token_twitch)
+                            <a href='{{ $data['twitch_url'] }}' id="btn-twitch-connect" class="btn btn-default btn-lg center">Connexion Twitch</a>
                         @else
-                            <a href="#" id="btn-twitch-connect" class="btn btn-default btn-lg center">Connexion Twitch</a>
+                            <p>Connecté</p>
                         @endif
                     </div>
                 </div>

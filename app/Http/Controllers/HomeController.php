@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\YoutubeTrait;
-use Illuminate\Http\Request;
+use App\Http\Traits\TwitchTrait;
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Input;
 use Request;
+use TwitchApi;
 
 class HomeController extends Controller
 {
 
 use YoutubeTrait;
+use TwitchTrait;
 
     /**
      * Create a new controller instance.
@@ -36,10 +39,21 @@ use YoutubeTrait;
         if ($this->isLoggedInYoutube()) {
             $data += ['videos' => ''];
         } else {
-            $data += ['youtube_url' => $this->generateUrl()];
+            $data += ['youtube_url' => $this->generateYoutubeUrl()];
         }
 
-        return view('home', $data);
+        if ($this->isLoggedInTwitch()) {
+            $client = getTwitchClient();
+            $data_request = 'streams/followed';
+            $request = new \GuzzleHttp\Psr7\Request('GET', $path, $data_request);
+            $response = $client->send($request);
+            $data += ['streams' => TwitchApi::liveChannel(Auth::user()->token_twitch)];
+
+        } else {
+            $data += ['twitch_url' => $this->generateTwitchUrl()];
+        }
+
+        return view('home', compact('data'));
     }
 
     public function test()
