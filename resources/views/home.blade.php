@@ -22,12 +22,8 @@
         <div class="tab-content">
             <div id="youtube-mobile" role="tabpanel" class="tab-pane active col col-xs-12 col-sm-12">
                 <div id="youtube-section" class="panel-body spy-youtube">
-<<<<<<< HEAD
-                    @if (Auth::user()->getAccessTokenYoutube())
-=======
                     @if (Auth::user()->token_youtube)
 						<p>Logged in</p>
->>>>>>> dev
                         <div id="video_list" >
                             <ul class="list-group">
                                 <li class="list-group-item">
@@ -98,7 +94,7 @@
 
             <div id="twitch-mobile" role="tabpanel" class="tab-pane col-xs-12 col-sm-12">
                 <div id="twitch-section" class="panel-body spy-twitch">
-                    @if (Auth::user()->token_youtube)
+                    @if (Auth::user()->token_twitch)
 
                     @else
                         <a href="#" id="btn-twitch-connect" class="btn btn-default btn-lg center">Connexion Twitch</a>
@@ -127,6 +123,7 @@
                 <div id="twitch-desktop" class="panel panel-default">
                     <div class="panel-heading">
                         Twitch
+                    </div>
                     <div class="panel-body text-center">
                         @if (!Auth::user()->token_twitch)
                             <a href='{{ $data['twitch_url'] }}' id="btn-twitch-connect" class="btn btn-default btn-lg center">Connexion Twitch</a>
