@@ -235,7 +235,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'TwitchApi' => Zarlach\TwitchApi\Facades\TwitchApiServiceFacade::class,
-
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
     ],
