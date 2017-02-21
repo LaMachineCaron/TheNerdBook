@@ -22,7 +22,7 @@
         <div class="tab-content">
             <div id="youtube-mobile" role="tabpanel" class="tab-pane active col col-xs-12 col-sm-12">
                 <div id="youtube-section" class="panel-body spy-youtube">
-                    @if (Auth::user()->token_youtube)
+                    @if (Auth::user()->getAccessTokenYoutube())
 						<p>Logged in</p>
                         <div id="video_list" >
                             <ul class="list-group">

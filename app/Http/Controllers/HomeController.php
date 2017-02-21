@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\YoutubeTrait;
-use Illuminate\Http\Request;
+
 
 use App\User;
 use Illuminate\Support\Facades\Input;
+
+use Request;
 
 class HomeController extends Controller
 {
