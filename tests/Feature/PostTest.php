@@ -32,13 +32,11 @@ class PostTest extends TestCase
         $post->user_id = 1;
         $post->content = "Ce vidéo est trop cool!!!";
         $post->url = "https://www.youtube.com";
-        $post->likes = 42;
         $this->assertTrue($post->save());
         $this->assertDatabaseHas('posts', [
             'user_id' => $post->user_id,
             'content' => $post->content,
             'url' => $post->url,
-            'likes' => $post->likes,
         ]);
     }
 }
