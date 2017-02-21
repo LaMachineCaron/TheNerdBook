@@ -9,7 +9,6 @@
 @endsection
 
 @section('content')
-
     <div id="mobile" class="container-fluid hidden-lg">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
@@ -103,7 +102,7 @@
                                             </div>
                                             <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
                                                 <h4>Dragonbax</h4>
-                                                <p>Best Streamer NA<p>
+    											<p>Best Streamer NA<p>
                                                 <p>Playing: Grand Theft Auto V</p>
                                             </div>
                                         </div>
@@ -155,8 +154,7 @@
                                             </div>
                                             <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
                                                 <h4>Streamer 5</h4>
-    											<p>Training RL<p>
-                                                <p>Playing: Rocket League </p>
+                                                <p>Training RL<p>       <p>Playing: Rocket League </p>
                                             </div>
                                         </div>
                                     </li>
