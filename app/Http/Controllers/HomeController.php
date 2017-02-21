@@ -6,8 +6,7 @@ use App\Http\Traits\YoutubeTrait;
 use Illuminate\Http\Request;
 
 use App\User;
-use Input;
-use Request;
+use Illuminate\Support\Facades\Input;
 
 class HomeController extends Controller
 {

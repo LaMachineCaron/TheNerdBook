@@ -51,6 +51,17 @@
                         </li>
                     @endif
                 </ul>
+                {!! Form::open(['action'=> 'HomeController@test', 'method'=>'get', 'class'=>'navbar-form navbar-center']) !!}
+                <div class="input-group">
+                    {!! Form::text('search', null,
+                                       array('required',
+                                            'class'=>'form-control',
+                                            'placeholder'=>'Rechercher un usager')) !!}
+                    <div class="input-group-btn">
+                        {!! Form::button('Rechercher',['type' => 'submit', 'class'=>'btn btn-info']) !!}
+                    </div>
+                </div>
+                {!! Form::close() !!}
             </div>
         </div>
     </nav>
