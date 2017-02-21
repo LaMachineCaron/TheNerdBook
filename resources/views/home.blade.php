@@ -13,6 +13,7 @@
                     </div>
                     <div class="panel-body spy-youtube">
                         @if (!Auth::user()->token_youtube)
+							<a href="{{ $data['youtube_url'] }}">Connexion</a>
                             <div  id="video_list" >
                                 <ul class="list-group">
                                     <li class="list-group-item">
@@ -71,6 +72,7 @@
                             </div>
                         @else
                             <a href="#" id="btn-youtube-connect" class="btn btn-default btn-lg center">Connexion Youtube</a>
+							<p>Logged in</p>
                         @endif
                     </div>
                 </div>
