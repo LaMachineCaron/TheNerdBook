@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\YoutubeTrait;
+use Auth;
 use Illuminate\Http\Request;
 
 use App\User;
@@ -33,6 +34,7 @@ use YoutubeTrait;
         $data = [];
 
         if ($this->isLoggedInYoutube()) {
+            $this->getSubVideos();
             $data += ['videos' => ''];
         } else {
             $data += ['youtube_url' => $this->generateYoutubeUrl()];

@@ -5,6 +5,7 @@ namespace App\Http\Traits;
 use Auth;
 use Google_Client;
 use Google_Service_YouTube;
+use GuzzleHttp\Client;
 use Illuminate\Auth\Authenticatable;
 
 /**
@@ -79,8 +80,9 @@ trait YoutubeTrait {
 	* Get an array of your sub id
 	*/
 	private function getSubId() {
-		$client = $this->getGoogleClient();
-		$response = $client->get('https://www.googleapis.com/youtube/v3/subscriptions', ['part' => 'snippet', 'mine' => true]);
+        $client = $this->getGoogleClient();
+        $httpClient = $client->getHttpClient();
+		$response = $httpClient->request('get', 'https://www.googleapis.com/youtube/v3/subscriptions', ['part' => 'snippet', 'mine' => true]);
 		dd($response);
 	}
 }
