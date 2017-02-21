@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\YoutubeTrait;
+use Illuminate\Http\Request;
 
 use App\User;
-use Input;
-use Request;
+use Illuminate\Support\Facades\Input;
 
 class HomeController extends Controller
 {
+
+use YoutubeTrait;
+
     /**
      * Create a new controller instance.
      *
@@ -26,7 +30,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data = [];
+
+        if ($this->isLoggedInYoutube()) {
+            $data += ['videos' => ''];
+        } else {
+            $data += ['youtube_url' => $this->generateYoutubeUrl()];
+        }
+
+        return view('home', compact('data'));
     }
 
     public function test()
