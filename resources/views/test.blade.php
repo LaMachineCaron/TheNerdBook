@@ -10,17 +10,12 @@
                     <h3>{{$user->first_name}} {{$user->last_name}}</h3>
                 </a>
                 <p>{{$user->email}}</p>
-                <?php
-                    if (Auth::user()->following()->where('id', $user->id)->count()){
-                        $btn_follow = 'unfollow';
-                        $btn_style = 'btn-danger';
-                    } else {
-                        $btn_follow = 'follow';
-                        $btn_style = 'btn-info';
-                    }
-                ?>
                 @if (Auth::user()->id != $user->id)
-                    <a href="{{ url('follow/'.$user->id) }}" class="btn {{ $btn_style }}">{{ $btn_follow }} </a>
+                    @if (Auth::user()->following()->where('id', $user->id)->count())
+                        <a href="{{ url('follow/'.$user->id) }}">unfollow </a>
+                    @else
+                        <a href="{{ url('follow/'.$user->id) }}">follow </a>
+                    @endif
                 @endif
             </div>
         @endforeach
