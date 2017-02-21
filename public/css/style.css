@@ -37,16 +37,6 @@ body {
     margin-top: 15px;
 }
 
-/* Affiche toujours le bouton du menu */
-@media (max-width: 360px) {
-
-}
-
-/* Affiche toujours le bouton du menu */
-@media (min-width: 768px) {
-
-}
-
 Form {
     margin-bottom: 0;
 }
@@ -73,40 +63,11 @@ Form {
     background-color: #e8e4e9;
 }
 
-.navbar-toggle:hover {
-    background-color: #10293b;
-}
-
-#youtube-panel>.panel-heading {
-    background-color: #cd201f;
-    color: #e8e4e9;
-}
-
-#twitch-panel>.panel-heading {
-    background-color: #6441A4;
-    color: #e8e4e9;
-}
-
 #test {
     background-color: #0d1b2a;
 }
 
-#btn-youtube-connect {
-    background-color: #cd201f;
-    color: #e8e4e9;
-}
 
-#btn-twitch-connect {
-    background-color: #6441A4;
-    color: #e8e4e9;
-}
-
-.video_description>p {
-    margin: 0;
-}
-
-.spy-youtube {
-    height: 80%;
-    position: relative;
-    overflow-y: scroll;
+.navbar-toggle:hover {
+    background-color: #10293b;
 }
