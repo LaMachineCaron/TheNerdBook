@@ -122,6 +122,12 @@
                 <div id="twitch-desktop" class="panel panel-default">
                     <div class="panel-heading">
                         Twitch
+                    <div class="panel-body text-center">
+                        @if (!Auth::user()->token_twitch)
+                            <a href='{{ $data['twitch_url'] }}' id="btn-twitch-connect" class="btn btn-default btn-lg center">Connexion Twitch</a>
+                        @else
+                            <p>Connecté</p>
+                        @endif
                     </div>
                 </div>
             </div>
