@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use Request;
 use TwitchApi;
 
-use Request;
-
 class HomeController extends Controller
 {
 

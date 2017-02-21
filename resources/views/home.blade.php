@@ -93,10 +93,10 @@
 
             <div id="twitch-mobile" role="tabpanel" class="tab-pane col-xs-12 col-sm-12">
                 <div id="twitch-section" class="panel-body spy-twitch">
-                    @if (Auth::user()->token_youtube)
+                    @if (Auth::user()->token_twitch)
 
                     @else
-                        <a href="#" id="btn-twitch-connect" class="btn btn-default btn-lg center">Connexion Twitch</a>
+						<a href="{{ $data['twitch_url'] }}" id="btn-twitch-connect" class="btn btn-default btn-lg center">Connexion Twitch</a>
                     @endif
                 </div>
             </div>
@@ -122,12 +122,6 @@
                 <div id="twitch-desktop" class="panel panel-default">
                     <div class="panel-heading">
                         Twitch
-                    <div class="panel-body text-center">
-                        @if (!Auth::user()->token_twitch)
-                            <a href='{{ $data['twitch_url'] }}' id="btn-twitch-connect" class="btn btn-default btn-lg center">Connexion Twitch</a>
-                        @else
-                            <p>Connecté</p>
-                        @endif
                     </div>
                 </div>
             </div>
