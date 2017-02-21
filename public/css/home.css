@@ -30,7 +30,7 @@
 
 /* Let's get this party started */
 ::-webkit-scrollbar {
-    width: 2px;
+    width: 4px;
 }
 
 /* Track */
@@ -87,4 +87,24 @@
 
 .nav-tabs, .nav-pills {
     text-align:center;
+}
+
+#video_list .list-group-item {
+    border: 1px double rgba(0, 0, 0, 0.24);
+}
+
+.nav-tabs {
+    border: 1px double rgba(0, 0, 0, 0.24);
+}
+
+.nav-tabs>.active {
+    border-top: transparent;
+    border-bottom: transparent;
+}
+
+.tab-pane {
+    border: 1px double rgba(0, 0, 0, 0.24);
+    border-top: transparent;
+    padding-left: 1px;
+    padding-right: 1px;
 }
