@@ -40,7 +40,7 @@ use YoutubeTrait;
             $data += ['youtube_url' => $this->generateYoutubeUrl()];
         }
 
-        return view('home', $data);
+        return view('home', compact('data'));
     }
 
     public function test()
