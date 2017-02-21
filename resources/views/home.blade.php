@@ -22,12 +22,8 @@
         <div class="tab-content">
             <div id="youtube-mobile" role="tabpanel" class="tab-pane active col col-xs-12 col-sm-12">
                 <div id="youtube-section" class="panel-body spy-youtube">
-<<<<<<< HEAD
-                    @if (Auth::user()->getAccessTokenYoutube())
-=======
                     @if (Auth::user()->token_youtube)
 						<p>Logged in</p>
->>>>>>> dev
                         <div id="video_list" >
                             <ul class="list-group">
                                 <li class="list-group-item">
