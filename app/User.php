@@ -12,9 +12,9 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
-    protected String $access_token_youtube = null;
+    protected $access_token_youtube = null;
 
-    protected String $access_token_twitch = null;
+    protected $access_token_twitch = null;
     
     /**
      * The attributes that are mass assignable.
