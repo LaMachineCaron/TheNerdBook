@@ -43,12 +43,7 @@ use TwitchTrait;
         }
 
         if ($this->isLoggedInTwitch()) {
-            $client = getTwitchClient();
-            $data_request = 'streams/followed';
-            $request = new \GuzzleHttp\Psr7\Request('GET', $path, $data_request);
-            $response = $client->send($request);
-            $data += ['streams' => TwitchApi::liveChannel(Auth::user()->token_twitch)];
-
+            $data += ['streams' => $this->getFollowedStreams()];
         } else {
             $data += ['twitch_url' => $this->generateTwitchUrl()];
         }
