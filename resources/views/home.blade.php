@@ -111,6 +111,11 @@
                                             <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
                                                 <h4>
                                                     {{ $stream['channel']['display_name'] }}
+                                                    {!! Form::open(['method' => 'POST', 'action' => 'HomeController@create_post_stream']) !!}
+                                                        {!! Form::text('caption') !!}
+                                                        {!! Form::hidden('stream', json_encode($stream)) !!}
+                                                        {!! Form::submit('Submit here :)') !!}
+                                                    {!! Form::close() !!}
                                                     <a href="#" class="glyphicon glyphicon-share-alt text-right"></a>
                                                 </h4>
                                                 <p>Playing: {{ $stream['game'] }}</p>
