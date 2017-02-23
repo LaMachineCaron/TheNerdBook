@@ -101,7 +101,6 @@
                                 ?>
                                 @foreach($streams as $stream)
                                     <li class="list-group-item">
-                                        <span class="right"><a href="#" class="btn btn-primary">Partager</a></span>
                                         <div class="row" style="height: 80px">
                                             <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
                                                 <a href="{{ $stream['channel']['url'] }}" >
@@ -110,8 +109,12 @@
 
                                             </div>
                                             <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
-                                                <h4>{{ $stream['channel']['display_name'] }}</h4>
+                                                <h4>
+                                                    {{ $stream['channel']['display_name'] }}
+                                                    <a href="#" class="glyphicon glyphicon-share-alt text-right"></a>
+                                                </h4>
                                                 <p>Playing: {{ $stream['game'] }}</p>
+
                                             </div>
                                         </div>
                                     </li>
