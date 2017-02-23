@@ -30,13 +30,11 @@ class YoutubeController extends Controller {
 		$client->authenticate($request->input('code'));
 		$token = $client->getAccessToken();
 		if (isset($token['refresh_token'])) {
-			Auth::user()->token_youtube = $token['refresh_token'];
-			Auth::user()->save();
+			Auth::user()->refresh_token_youtube = $token['refresh_token'];
 		}
-		Auth::user()->setAccessTokenYoutube($token);
-        $youtube = new \Google_Service_YouTube($client);
-        $response = $youtube->subscriptions->listSubscriptions('id', ['mine' => true]);
-        dd($response);
+		unset($token['refresh_token']);
+		Auth::user()->access_token_youtube = json_encode($token);
+		Auth::user()->save();
 		return redirect()->back();
 	}
 }
