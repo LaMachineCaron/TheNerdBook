@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Traits\YoutubeTrait;
 use App\Http\Traits\TwitchTrait;
 
-use App\User;
 use App\Models\Post;
+use App\User;
+use GuzzleHttp\Exception\ClientException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
-use Request;
 use TwitchApi;
 
 class HomeController extends Controller
@@ -33,7 +34,7 @@ use TwitchTrait;
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($page)
+    public function index($page = 1)
     {
         $postPerPage = 5;
         $data = [];
@@ -64,6 +65,22 @@ use TwitchTrait;
         return view('home', $data);
     }
 
+    public function create_post_stream(Request $request)
+    {
+        $stream = json_decode($request->input('stream'), true);
+        $post = new Post();
+        $post->user_id = Auth::user()->id;
+        $post->type = 1;
+        $post->caption = $request->input('caption');
+        $post->title = $stream['channel']['status'];
+        $post->channel_name = $stream['channel']['name']; //Not using display_name
+        $post->game_title = $stream['game'];
+        if ($post->save()) {
+            return redirect()->back()->with('status', 'Le post a été créé.');
+        } else {
+            return redirect()->back()->withErrors('Erreur de sauvegarde du post.');
+        }
+    }
 
     public function test()
     {

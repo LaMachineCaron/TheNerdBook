@@ -37,7 +37,10 @@ $factory->define(App\Models\Post::class, function (Faker\Generator $faker) {
     return [
         'user_id' => App\User::inRandomOrder()->first()->id,
         'url' => $faker->url,
-        'content' => $faker->realText(50, 2),
+        'title' => $faker->title,
+        'caption' => $faker->realText(50, 2),
+        'channel_name' => $faker->name,
+        'type' => 3
     ];
 });
 
