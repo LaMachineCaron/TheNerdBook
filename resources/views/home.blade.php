@@ -80,7 +80,7 @@
                             </ul>
                         </div>
                     @elseif (isset($youtube_url))
-                        <a href="{{ $data['youtube_url'] }}" id="btn-youtube-connect" class="btn btn-default btn-lg center">Connexion Youtube</a>
+                        <a href="{{ $youtube_url }}" id="btn-youtube-connect" class="btn btn-default btn-lg center">Connexion Youtube</a>
                     @endif
                 </div>
             </div>
@@ -97,7 +97,7 @@
                         <div id="video_list" >
                             <ul class="list-group">
                                 <?php
-                                $streams = $data['streams']['streams'];
+                                $streams = $streams['streams'];
                                 ?>
                                 @foreach($streams as $stream)
                                     <li class="list-group-item">
