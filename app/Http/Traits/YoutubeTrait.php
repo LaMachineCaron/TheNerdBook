@@ -97,24 +97,29 @@ trait YoutubeTrait {
 	* Get the videos from your subs
 	*/
 	public function getSubVideos() {
-		$this->getSubId();
 		$this->getVideos();
 	}
 
 	/**
 	* Get an array of your sub id
 	*/
-	private function getSubId() {
-	    $client = $this->getAuthenticatedGoogleClient();
-	    $youtube = new Google_Service_YouTube($client);
+	private function getSubId($youtube) {
         //TODO: Change maxResult to handle if user has more than 50 subs.
-        $response = $youtube->subscriptions->listSubscriptions('id', ['mine' => true, 'maxResults' => 50]);
+        $subscriptions = [];
+        $response = $youtube->subscriptions->listSubscriptions('snippet', ['mine' => true, 'maxResults' => 2]);
+        $subscriptions = array_merge($subscriptions, array_map(function ($item) {return $item->snippet['resourceId']['channelId'];}, $response->getItems()));
+        return $subscriptions;
 	}
 
 	public function getVideos() {
         $client = $this->getAuthenticatedGoogleClient();
         $youtube = new Google_Service_YouTube($client);
-        $response = $youtube->subscriptions->listSubscriptions('id', ['mine' => true, 'maxResults' => 50]);
-        dd($response);
+        $subscriptions = $this->getSubId($youtube);
+        $videos = [];
+        foreach ($subscriptions as $subscription) {
+            $response = $youtube->search->listSearch('snippet', ['channelId' => $subscription, 'maxResults' => 2]);
+            $videos = array_merge($videos, $response->getItems());
+        }
+        return $videos;
     }
 }
