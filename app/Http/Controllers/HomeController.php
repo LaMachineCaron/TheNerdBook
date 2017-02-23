@@ -33,7 +33,7 @@ use TwitchTrait;
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($page)
+    public function index($page = 1)
     {
         $postPerPage = 5;
         $data = [];
