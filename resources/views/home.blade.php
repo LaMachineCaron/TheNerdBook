@@ -102,7 +102,7 @@
                                     <li class="list-group-item">
                                         <div class="row" style="height: 80px">
                                             <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
-                                                <a href="{{ $stream['channel']['url'] }}">
+                                                <a href="{{ $stream['channel']['url'] }}" >
                                                     <img width="80px" height="80px" src="{{ $stream['channel']['logo'] }}" class="img-thumbnail img-responsive center-block">
                                                 </a>
 
