@@ -102,11 +102,13 @@
                                     <li class="list-group-item">
                                         <div class="row" style="height: 80px">
                                             <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
-                                                <img width="80px" height="80px" src="{{ $stream['channel']['logo'] }}" class="img-thumbnail img-responsive center-block">
+                                                <a href="{{ $stream['channel']['url'] }}">
+                                                    <img width="80px" height="80px" src="{{ $stream['channel']['logo'] }}" class="img-thumbnail img-responsive center-block">
+                                                </a>
+
                                             </div>
                                             <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
                                                 <h4>{{ $stream['channel']['display_name'] }}</h4>
-                                                <p>{{ $stream['channel']['status'] }}</p>
                                                 <p>Playing: {{ $stream['game'] }}</p>
                                             </div>
                                         </div>
