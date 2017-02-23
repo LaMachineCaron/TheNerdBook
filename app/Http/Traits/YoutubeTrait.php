@@ -6,6 +6,7 @@ use Auth;
 use Google_Client;
 use Google_Service_YouTube;
 use Illuminate\Auth\Authenticatable;
+use GuzzleHttp\Client;
 
 /**
  * Class YoutubeTrait
@@ -60,11 +61,30 @@ trait YoutubeTrait {
 	 */
 	private function getGoogleClient(): Google_Client {
 		$client = new Google_Client();
+		$client->setHttpClient(new Client(array(
+			'verify' => false,
+		)));
 		$client->setAuthConfig(public_path('client_secrets.json'));
 		$client->setAccessType("offline");        // offline access
 		$client->setIncludeGrantedScopes(true);   // incremental auth
 		$client->addScope(Google_Service_YouTube::YOUTUBE_READONLY);
 		$client->setRedirectUri(route('youtubeCallback'));
 		return $client;
+	}
+
+	/**
+	* Get the videos from your subs
+	*/
+	public function getSubVideos() {
+		$this->getSubId();
+	}
+
+	/**
+	* Get an array of your sub id
+	*/
+	private function getSubId() {
+		$client = $this->getGoogleClient();
+		$response = $client->get('https://www.googleapis.com/youtube/v3/subscriptions', ['part' => 'snippet', 'mine' => true]);
+		dd($response);
 	}
 }
