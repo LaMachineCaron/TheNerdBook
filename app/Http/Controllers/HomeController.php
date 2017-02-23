@@ -37,20 +37,21 @@ use TwitchTrait;
     {
         $postPerPage = 5;
         $data = [];
+        $user = Auth::user();
 
         if ($this->isLoggedInYoutube()) {
-            $data += ['videos' => ''];
+            $this->getSubVideos();
+            $data['videos'] = [];
         } else {
-            $data += ['youtube_url' => $this->generateYoutubeUrl()];
+            $data['youtube_url'] = $this->generateYoutubeUrl();
         }
 
         if ($this->isLoggedInTwitch()) {
-            $data += ['streams' => $this->getFollowedStreams()];
+            $data['streams'] = $this->getFollowedStreams();
         } else {
-            $data += ['twitch_url' => $this->generateTwitchUrl()];
+            $data['twitch_url'] = $this->generateTwitchUrl();
         }
 
-        $user = Auth::user();
         $posts = Post::With('comments.likes', 'likes')
             ->WhereIn('user_id', $user->following()
                 ->pluck('id'))
@@ -58,8 +59,9 @@ use TwitchTrait;
             ->limit($postPerPage)
             ->offset((($page - 1) * $postPerPage))
             ->get();
-        $data += ['posts' => $posts];
-        return view('home', compact('data'));
+        $data['posts'] = $posts;
+
+        return view('home', $data);
     }
 
 

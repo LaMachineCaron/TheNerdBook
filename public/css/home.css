@@ -108,3 +108,11 @@
     padding-left: 1px;
     padding-right: 1px;
 }
+
+.video_description p {
+    text-overflow: ellipsis;
+}
+
+.video_description {
+    height: 80px;
+}

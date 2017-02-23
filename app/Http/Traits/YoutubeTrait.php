@@ -5,8 +5,8 @@ namespace App\Http\Traits;
 use Auth;
 use Google_Client;
 use Google_Service_YouTube;
-use Illuminate\Auth\Authenticatable;
 use GuzzleHttp\Client;
+use Illuminate\Auth\Authenticatable;
 
 /**
  * Class YoutubeTrait
@@ -35,23 +35,32 @@ trait YoutubeTrait {
 	 * @return bool  True if the user has a refresh token
 	 */
 	public function isLoggedInYoutube() {
-		return Auth::user()->token_youtube !== null;
+		return Auth::user()->refresh_token_youtube !== null;
 	}
 
 	/**
-	 * Refresh the access token if it's expired
-	 *
-	 * @return array  The Google Client access token
+	 * Logout the Google Client
 	 */
-	public function getAccessTokenYoutube(): array {
-		$client = $this->getGoogleClient();
-		$client->setAccessToken(Auth::user()->getAccessTokenYoutube());
+	public function logoutYoutube() {
+		$client = $this->getAuthenticatedGoogleClient();
+		$client->revokeToken();
+	}
+
+	/**
+	 * Refresh the access token if it's expired on the given client
+	 *
+	 * @param Google_Client $client  The client on which the token is refreshed
+	 */
+	public function setAccessTokenYoutube(Google_Client $client) {
+		$access_token = json_decode(Auth::user()->access_token_youtube, true);
+		$client->setAccessToken($access_token);
 		if($client->isAccessTokenExpired()) {
-			$new_token = $client->fetchAccessTokenWithRefreshToken(Auth::user()->token_youtube);
+			$refresh_token = Auth::user()->refresh_token_youtube;
+			$new_token = $client->fetchAccessTokenWithRefreshToken($refresh_token);
 			$client->setAccessToken($new_token);
-			Auth::user()->setAccessTokenYoutube($new_token);
+			Auth::user()->access_token_youtube = json_encode($new_token);
+			Auth::user()->save();
 		}
-		return $client->getAccessToken();
 	}
 
 	/**
@@ -65,6 +74,7 @@ trait YoutubeTrait {
 			'verify' => false,
 		)));
 		$client->setAuthConfig(public_path('client_secrets.json'));
+		$client->setApprovalPrompt("force"); // ask for a refresh_token
 		$client->setAccessType("offline");        // offline access
 		$client->setIncludeGrantedScopes(true);   // incremental auth
 		$client->addScope(Google_Service_YouTube::YOUTUBE_READONLY);
@@ -73,18 +83,43 @@ trait YoutubeTrait {
 	}
 
 	/**
+	 * Configures, authenticates, and returns a Google Client
+	 *
+	 * @return Google_Client  The authenticated Google_Client
+	 */
+	private function getAuthenticatedGoogleClient(): Google_Client {
+		$client = $this->getGoogleClient();
+		$this->setAccessTokenYoutube($client);
+		return $client;
+	}
+
+	/**
 	* Get the videos from your subs
 	*/
 	public function getSubVideos() {
-		$this->getSubId();
+		$this->getVideos();
 	}
 
 	/**
 	* Get an array of your sub id
 	*/
-	private function getSubId() {
-		$client = $this->getGoogleClient();
-		$response = $client->get('https://www.googleapis.com/youtube/v3/subscriptions', ['part' => 'snippet', 'mine' => true]);
-		dd($response);
+	private function getSubId($youtube) {
+        //TODO: Change maxResult to handle if user has more than 50 subs.
+        $subscriptions = [];
+        $response = $youtube->subscriptions->listSubscriptions('snippet', ['mine' => true, 'maxResults' => 2]);
+        $subscriptions = array_merge($subscriptions, array_map(function ($item) {return $item->snippet['resourceId']['channelId'];}, $response->getItems()));
+        return $subscriptions;
 	}
+
+	public function getVideos() {
+        $client = $this->getAuthenticatedGoogleClient();
+        $youtube = new Google_Service_YouTube($client);
+        $subscriptions = $this->getSubId($youtube);
+        $videos = [];
+        foreach ($subscriptions as $subscription) {
+            $response = $youtube->search->listSearch('snippet', ['channelId' => $subscription, 'maxResults' => 2]);
+            $videos = array_merge($videos, $response->getItems());
+        }
+        return $videos;
+    }
 }
