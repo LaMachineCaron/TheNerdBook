@@ -34,6 +34,9 @@ class YoutubeController extends Controller {
 			Auth::user()->save();
 		}
 		Auth::user()->setAccessTokenYoutube($token);
+        $youtube = new \Google_Service_YouTube($client);
+        $response = $youtube->subscriptions->listSubscriptions('id', ['mine' => true]);
+        dd($response);
 		return redirect()->back();
 	}
 }

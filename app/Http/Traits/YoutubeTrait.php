@@ -7,7 +7,6 @@ use Google_Client;
 use Google_Service_YouTube;
 use GuzzleHttp\Client;
 use Illuminate\Auth\Authenticatable;
-use GuzzleHttp\Client;
 
 /**
  * Class YoutubeTrait
@@ -78,15 +77,24 @@ trait YoutubeTrait {
 	*/
 	public function getSubVideos() {
 		$this->getSubId();
+
 	}
 
 	/**
 	* Get an array of your sub id
 	*/
 	private function getSubId() {
-        $client = $this->getGoogleClient();
-        $httpClient = $client->getHttpClient();
-		$response = $httpClient->request('get', 'https://www.googleapis.com/youtube/v3/subscriptions', ['part' => 'snippet', 'mine' => true]);
-		dd($response);
+	    $client = $this->getGoogleClient();
+        Auth::user()->setAccessTokenYoutube($client->fetchAccessTokenWithRefreshToken(Auth::user()->token_youtube));
+        $client->setAccessToken($this->getAccessTokenYoutube());
+	    $client = new Google_Service_YouTube($client);
+        //TODO: Change maxResult to handle if user has more than 50 subs.
+        $response = $client->subscriptions->listSubscriptions('id', ['mine' => true, 'maxResults' => 50]);
 	}
+
+	public function getVideos() {
+        $client = $this->getGoogleClient();
+        $client = new Google_Service_YouTube($client);
+        $response = $client->subscriptions->listSubscriptions('id', ['mine' => true, 'maxResults' => 50]);
+    }
 }
