@@ -50,7 +50,11 @@ use TwitchTrait;
         }
         
         $user = Auth::user();
-        $posts = Post::With('comments')->WhereIn('user_id', $user->following()->pluck('id'))->orderBy('created_at')->get();
+        $posts = Post::With('comments.likes', 'likes')
+        	->WhereIn('user_id', $user->following()
+        	->pluck('id'))
+        	->orderBy('created_at', 'desc')
+        	->get();
         $data += ['posts' => $posts];
 
         return view('home', compact('data'));

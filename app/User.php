@@ -73,10 +73,10 @@ class User extends Authenticatable
     }
 
     public function comment_like(){
-        return $this->hasMany(CommentLike::class);
+        return $this->hasMany(CommentLike::class, 'user_id');
     }
 
     public function post_like(){
-        return $this->hasMany(PostLike::class);
+        return $this->hasMany(PostLike::class, 'user_id');
     }
 }
