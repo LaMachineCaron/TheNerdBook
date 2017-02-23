@@ -34,6 +34,7 @@
                                             <p>Pseudo</p>
                                             <p>Il y a 4 sec</p>
                                             <p>Voici une description qui est pas long. Ça fait des cool shit.</p>
+											<a href="#" id="btn-share" class="btn btn-primary btn-lg center">Partager</a>
                                         </div>
                                     </div>
                                 </li>
