@@ -21,7 +21,7 @@
         <div class="tab-content">
             <div id="youtube-mobile" role="tabpanel" class="tab-pane active col col-xs-12 col-sm-12">
                 <div id="youtube-section" class="panel-body spy-youtube">
-                    @if (isset($videos))
+                    @if (isset($videos) || Auth::user()->token_youtube)
                         <div id="video_list" >
                             <ul class="list-group">
                                 <li class="list-group-item">
@@ -93,13 +93,13 @@
 
             <div id="twitch-mobile" role="tabpanel" class="tab-pane col-xs-12 col-sm-12">
                 <div id="twitch-section" class="panel-body spy-twitch">
-                    @if (isset($streams))
+                    @if (isset($streams) || Auth::user()->token_twitch)
                         <div id="video_list" >
                             <ul class="list-group">
                                 <?php
-                                $streams_info = $streams['streams'];
+                                $streams = $streams['streams'];
                                 ?>
-                                @foreach($streams_info as $stream)
+                                @foreach($streams as $stream)
                                     <li class="list-group-item">
                                         <div class="row" style="height: 80px">
                                             <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
@@ -109,8 +109,17 @@
 
                                             </div>
                                             <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
-                                                <h4>{{ $stream['channel']['display_name'] }}</h4>
+                                                <h4>
+                                                    {{ $stream['channel']['display_name'] }}
+                                                    {!! Form::open(['method' => 'POST', 'action' => 'HomeController@create_post_stream']) !!}
+                                                        {!! Form::text('caption') !!}
+                                                        {!! Form::hidden('stream', json_encode($stream)) !!}
+                                                        {!! Form::submit('Submit here :)') !!}
+                                                    {!! Form::close() !!}
+                                                    <a href="#" class="glyphicon glyphicon-share-alt text-right"></a>
+                                                </h4>
                                                 <p>Playing: {{ $stream['game'] }}</p>
+
                                             </div>
                                         </div>
                                     </li>

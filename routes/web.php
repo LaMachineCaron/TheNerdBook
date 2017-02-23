@@ -37,7 +37,8 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::post('register', 'Auth\RegisterController@register');
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::get('/home/page/{page}', 'HomeController@index');
+    Route::get('/home/page/{page?}', 'HomeController@index');
+    Route::post('/post/stream/create', 'HomeController@create_post_stream');
 	Route::get('/youtube/callback', 'YoutubeController@callback')->name('youtubeCallback');
 	Route::get('/twitch/callback','TwitchController@callback')->name('twitchCallback');
     Route::get('/test', 'HomeController@test');
