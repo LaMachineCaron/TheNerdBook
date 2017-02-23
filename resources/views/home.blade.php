@@ -21,7 +21,7 @@
         <div class="tab-content">
             <div id="youtube-mobile" role="tabpanel" class="tab-pane active col col-xs-12 col-sm-12">
                 <div id="youtube-section" class="panel-body spy-youtube">
-                    @if (isset($videos))
+                    @if (isset($videos) || Auth::user()->token_youtube)
                         <div id="video_list" >
                             <ul class="list-group">
                                 <li class="list-group-item">
@@ -80,7 +80,7 @@
                             </ul>
                         </div>
                     @elseif (isset($youtube_url))
-                        <a href="{{ $youtube_url }}" id="btn-youtube-connect" class="btn btn-default btn-lg center">Connexion Youtube</a>
+                        <a href="{{ $data['youtube_url'] }}" id="btn-youtube-connect" class="btn btn-default btn-lg center">Connexion Youtube</a>
                     @endif
                 </div>
             </div>
@@ -93,14 +93,15 @@
 
             <div id="twitch-mobile" role="tabpanel" class="tab-pane col-xs-12 col-sm-12">
                 <div id="twitch-section" class="panel-body spy-twitch">
-                    @if (isset($streams))
+                    @if (isset($streams) || Auth::user()->token_twitch)
                         <div id="video_list" >
                             <ul class="list-group">
                                 <?php
-                                $streams_info = $streams['streams'];
+                                $streams = $data['streams']['streams'];
                                 ?>
-                                @foreach($streams_info as $stream)
+                                @foreach($streams as $stream)
                                     <li class="list-group-item">
+                                        <span class="right"><a href="#" class="btn btn-primary">Partager</a></span>
                                         <div class="row" style="height: 80px">
                                             <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
                                                 <a href="{{ $stream['channel']['url'] }}" >
