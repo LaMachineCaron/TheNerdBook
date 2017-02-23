@@ -106,7 +106,7 @@ trait YoutubeTrait {
 	*/
 	private function getSubId() {
 	    $client = $this->getAuthenticatedGoogleClient();
-	    $client = new Google_Service_YouTube($client);
+	    $youtube = new Google_Service_YouTube($client);
         //TODO: Change maxResult to handle if user has more than 50 subs.
         $response = $youtube->subscriptions->listSubscriptions('id', ['mine' => true, 'maxResults' => 50]);
 	}
