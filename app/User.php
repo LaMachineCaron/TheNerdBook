@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\CommentLike;
+use App\Models\PostLike;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use phpDocumentor\Reflection\Types\This;
@@ -68,5 +70,13 @@ class User extends Authenticatable
 
     public function setAccessTokenTwitch(String $access_token) {
         $this->access_token_twitch = $access_token;
+    }
+
+    public function comment_like(){
+        return $this->hasMany(CommentLike::class);
+    }
+
+    public function post_like(){
+        return $this->hasMany(PostLike::class);
     }
 }

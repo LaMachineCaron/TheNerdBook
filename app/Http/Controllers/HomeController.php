@@ -70,4 +70,5 @@ use TwitchTrait;
 
         return view('test', compact('foundUsers', 'input'));
     }
+
 }
