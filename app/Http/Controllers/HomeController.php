@@ -38,27 +38,19 @@ use TwitchTrait;
         $data = [];
 
         if ($this->isLoggedInYoutube()) {
-            $data += ['videos' => ''];
+            $this->getSubVideos();
+            $data['videos'] = [];
         } else {
-            $data += ['youtube_url' => $this->generateYoutubeUrl()];
+            $data['youtube_url'] = $this->generateYoutubeUrl();
         }
 
-        try {
-            if ($this->isLoggedInTwitch()) {
-                $data += ['streams' => $this->getFollowedStreams()];
-            } else {
-                $data += ['twitch_url' => $this->generateTwitchUrl()];
-            }
-
-
-        } catch(ClientException $e){
-            Auth::user()->token_twitch = null;
-            Auth::user()->save();
-
-            return redirect()->back();
+        if ($this->isLoggedInTwitch()) {
+            $data['streams'] = $this->getFollowedStreams();
+        } else {
+            $data['twitch_url'] = $this->generateTwitchUrl();
         }
 
-        return view('home', compact('data'));
+        return view('home', $data);
     }
 
     public function create_post($request, $stream, $video)
