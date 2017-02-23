@@ -35,7 +35,7 @@ trait YoutubeTrait {
 	 * @return bool  True if the user has a refresh token
 	 */
 	public function isLoggedInYoutube() {
-		return Auth::user()->token_youtube !== null;
+		return Auth::user()->refresh_token_youtube !== null;
 	}
 
 	/**
@@ -77,24 +77,26 @@ trait YoutubeTrait {
 	*/
 	public function getSubVideos() {
 		$this->getSubId();
-
+		$this->getVideos();
 	}
 
 	/**
 	* Get an array of your sub id
 	*/
 	private function getSubId() {
-	    $client = $this->getGoogleClient();
-        Auth::user()->setAccessTokenYoutube($client->fetchAccessTokenWithRefreshToken(Auth::user()->token_youtube));
-        $client->setAccessToken($this->getAccessTokenYoutube());
-	    $client = new Google_Service_YouTube($client);
+	    $client = $this->getAuthenticatedGoogleClient();
+	    //$salut = Auth::user()->token_youtube;
+        //Auth::user()->setAccessTokenYoutube($client->fetchAccessTokenWithRefreshToken(Auth::user()->token_youtube));
+        //$client->setAccessToken($this->getAccessTokenYoutube());
+        $youtube = new Google_Service_YouTube($client);
         //TODO: Change maxResult to handle if user has more than 50 subs.
-        $response = $client->subscriptions->listSubscriptions('id', ['mine' => true, 'maxResults' => 50]);
+        $response = $youtube->subscriptions->listSubscriptions('id', ['mine' => true, 'maxResults' => 50]);
 	}
 
 	public function getVideos() {
-        $client = $this->getGoogleClient();
-        $client = new Google_Service_YouTube($client);
-        $response = $client->subscriptions->listSubscriptions('id', ['mine' => true, 'maxResults' => 50]);
+        $client = $this->getAuthenticatedGoogleClient();
+        $youtube = new Google_Service_YouTube($client);
+        $response = $youtube->subscriptions->listSubscriptions('id', ['mine' => true, 'maxResults' => 50]);
+        dd($response);
     }
 }
