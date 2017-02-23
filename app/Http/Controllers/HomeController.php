@@ -6,6 +6,7 @@ use App\Http\Traits\YoutubeTrait;
 use App\Http\Traits\TwitchTrait;
 
 use App\User;
+use App\Models\Post;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 use Request;
@@ -47,6 +48,10 @@ use TwitchTrait;
         } else {
             $data += ['twitch_url' => $this->generateTwitchUrl()];
         }
+        
+        $user = Auth::user();
+        $posts = Post::With('comments')->WhereIn('user_id', $user->following()->pluck('id'))->orderBy('created_at')->get();
+        $data += ['posts' => $posts];
 
         return view('home', compact('data'));
     }
