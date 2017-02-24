@@ -104,13 +104,14 @@
                                         <div class="row" style="height: 80px">
                                             <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
                                                 <a href="{{ $stream['channel']['url'] }}">
-                                                    <img width="80px" height="80px" src="{{ $stream['channel']['logo'] }}" class="img-thumbnail img-responsive center-block">
+                                                    <img width="80px" height="80px" src="{{ $stream['channel']['logo'] }}" alt="image_{{ $stream['channel']['display_name'] }}" class="img-thumbnail img-responsive center-block">
                                                 </a>
 
                                             </div>
                                             <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
                                                 <h4>{{ $stream['channel']['display_name'] }}</h4>
                                                 <p>Playing: {{ $stream['game'] }}</p>
+												<a href="#" id="btn-share-twitch" class="btn btn-primary btn-lg center">Partager</a>
                                             </div>
                                         </div>
                                     </li>
