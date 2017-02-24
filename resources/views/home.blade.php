@@ -37,16 +37,43 @@
                                         </div>
                                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 video_description">
                                             <h4>{{ $title }}</h4>
-                                            {!! Form::open(['method' => 'POST', 'action' => 'HomeController@create_post_video']) !!}
-                                            {!! Form::text('caption') !!}
-                                            {!! Form::hidden('video', json_encode($video['modelData'])) !!}
-                                            {!! Form::submit('Submit here :)') !!}
-                                            {!! Form::close() !!}
-                                            <p>{{ $snippet['channelId'] }} <a href="#" class="glyphicon glyphicon-share-alt text-right"></a> </p>
+
+                                            
+                                            <p>{{ $snippet['channelId'] }}  
+                                            
+                                            <!-- Button trigger modal -->
+											<a href="#" class="glyphicon glyphicon-share-alt text-right" data-toggle="modal" data-target="#modal_{{$video['modeldata']['id']['videoId']}}"></a> 
+											
+											</p>
                                             <p>{{ $snippet['publishedAt'] }}</p>
                                         </div>
                                     </div>
                                 </li>
+                                
+                                <!-- Modal -->
+								<div class="modal fade" id="modal_{{$video['modeldata']['id']['videoId']}}" tabindex="-1" role="dialog" aria-labelledby="modal_{{$video['modeldata']['id']['videoId']}}">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								        <h4 class="modal-title" id="myModalLabel">Partager la vidéo</h4>
+								      </div>
+								      <div class="modal-body">
+								      	{!! Form::open(['method' => 'POST', 'action' => 'HomeController@create_post_video']) !!}
+                                            {!! Form::text('caption') !!}
+                                            {!! Form::hidden('video', json_encode($video['modelData'])) !!}
+                                            
+                                        
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								        {!! Form::submit('Submit here :)') !!}
+								      	{!! Form::close() !!}
+								      </div>
+								    </div>
+								  </div>
+								</div>
+                                
                                 @endforeach
                             </ul>
                         </div>
@@ -58,7 +85,23 @@
 
             <div id="post-mobile" role="tabpanel" class="tab-pane col-xs-12 col-sm-12">
                 <div id="post-section">
-
+					<div class="post_list">
+						@foreach($posts as $post)
+				            <div class="message-box">
+				                <a href="{{ url('user/'.$post->user_id) }}">
+				                    <h3>{{$post->user->first_name}} {{$post->user->last_name}}</h3>
+				                </a>
+				                <p>{{$post->title}}</p>
+				                <p>Lien: {{ $post->url }}</p>
+				                <p>{{$post->caption}}</p>
+				                @if ($post->type == 1) // If it's a stream
+									
+								@elseif ($post->type == 2)
+									<p>Jeux: {{$post->game_title}}</p>
+								@endif
+				            </div>
+				        @endforeach
+					</div>
                 </div>
             </div>
 
@@ -74,23 +117,17 @@
                                     <li class="list-group-item">
                                         <div class="row" style="height: 80px">
                                             <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
-                                                <a target="_blank" href="{{ $stream['channel']['url'] }}" >
-                                                    <img width="80px" height="80px" src="{{ $stream['channel']['logo'] }}" class="img-thumbnail img-responsive center-block">
+                                                <a href="{{ $stream['channel']['url'] }}">
+                                                    <img width="80px" height="80px" src="{{ $stream['channel']['logo'] }}" alt="image_{{ $stream['channel']['display_name'] }}" class="img-thumbnail img-responsive center-block">
                                                 </a>
 
                                             </div>
                                             <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
                                                 <h4>
                                                     {{ $stream['channel']['display_name'] }}
-                                                    {!! Form::open(['method' => 'POST', 'action' => 'HomeController@create_post_stream']) !!}
-                                                        {!! Form::text('caption') !!}
-                                                        {!! Form::hidden('stream', json_encode($stream)) !!}
-                                                        {!! Form::submit('Submit here :)') !!}
-                                                    {!! Form::close() !!}
-                                                    <a href="#" class="glyphicon glyphicon-share-alt text-right"></a>
+                                                    <a href="#" class="glyphicon glyphicon-share-alt text-right" data-toggle="modal" data-target="#modal_{{$stream['_id']}}"></a>
                                                 </h4>
                                                 <p>Playing: {{ $stream['game'] }}</p>
-
                                             </div>
                                         </div>
                                     </li>
@@ -131,3 +168,27 @@
     </div>
 
 @endsection
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
