@@ -34,9 +34,11 @@ use TwitchTrait;
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($page = 1)
     {
+        $postPerPage = 5;
         $data = [];
+        $user = Auth::user();
 
         if ($this->isLoggedInYoutube()) {
             $this->getSubVideos();
@@ -50,6 +52,15 @@ use TwitchTrait;
         } else {
             $data['twitch_url'] = $this->generateTwitchUrl();
         }
+
+        $posts = Post::With('comments.likes', 'likes')
+            ->WhereIn('user_id', $user->following()
+                ->pluck('id'))
+            ->orderBy('created_at', 'desc')
+            ->limit($postPerPage)
+            ->offset((($page - 1) * $postPerPage))
+            ->get();
+        $data['posts'] = $posts;
 
         return view('home', $data);
     }
@@ -102,4 +113,5 @@ use TwitchTrait;
 
         return view('test', compact('foundUsers', 'input'));
     }
+
 }
