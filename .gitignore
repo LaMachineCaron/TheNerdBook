@@ -11,3 +11,4 @@ _ide_helper.php
 .phpstorm.meta.php
 composer.lock
 /resources/views/vendor/*
+merge.sh

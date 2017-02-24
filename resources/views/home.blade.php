@@ -24,59 +24,25 @@
                     @if (isset($videos))
                         <div id="video_list" >
                             <ul class="list-group">
+                                @foreach($videos as $video)
+                                    <?php
+                                        $snippet = $video['modelData']['snippet'];
+                                        $title = $snippet['title'];
+                                        $thumbnail = $snippet['thumbnails']['default'];
+                                ?>
                                 <li class="list-group-item">
                                     <div class="row" style="height: 140px">
                                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                            <img width="140px" height="140px" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
+                                            <img width="{{ $thumbnail['width'] }}" height="{{ $thumbnail['height'] }}" src="{{ $thumbnail['url'] }}" class="img-thumbnail img-responsive center-block">
                                         </div>
                                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 video_description">
-                                            <h4>Title</h4>
-                                            <p>Pseudo</p>
-                                            <p>Il y a 4 sec</p>
-                                            <p>Voici une description qui est pas long. Ça fait des cool shit.</p>
-											<a href="#" id="btn-share" class="btn btn-primary btn-lg center">Partager</a>
+                                            <h4>{{ $title }}</h4>
+                                            <p>{{ $snippet['channelId'] }} <a href="#" class="glyphicon glyphicon-share-alt text-right"></a> </p>
+                                            <p>{{ $snippet['publishedAt'] }}</p>
                                         </div>
                                     </div>
                                 </li>
-                                <li class="list-group-item">
-                                    <div class="row" style="height: 140px">
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                            <img width="140px" height="140px" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
-                                        </div>
-                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 video_description">
-                                            <h4>Title</h4>
-                                            <p>Pseudo</p>
-                                            <p>Il y a 4 sec</p>
-                                            <p>Voici une description qui est pas long. Ça fait des cool shit.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="row" style="height: 140px">
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                            <img width="140px" height="140px" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
-                                        </div>
-                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 video_description">
-                                            <h4>Title</h4>
-                                            <p>Pseudo</p>
-                                            <p>Il y a 4 sec</p>
-                                            <p>Voici une description qui est pas long. Ça fait des cool shit.</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="row" style="height: 140px">
-                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                            <img width="140px" height="140px" src="{{ asset('img/logo2.png') }}" class="img-thumbnail img-responsive center-block">
-                                        </div>
-                                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 video_description">
-                                            <h4>Title</h4>
-                                            <p>Pseudo</p>
-                                            <p>Il y a 4 sec</p>
-                                            <p>Voici une description qui est pas long. Ça fait des cool shit.</p>
-                                        </div>
-                                    </div>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                     @elseif (isset($youtube_url))
@@ -97,20 +63,29 @@
                         <div id="video_list" >
                             <ul class="list-group">
                                 <?php
-                                $streams_info = $streams['streams'];
+                                $streams = $streams['streams'];
                                 ?>
-                                @foreach($streams_info as $stream)
+                                @foreach($streams as $stream)
                                     <li class="list-group-item">
                                         <div class="row" style="height: 80px">
                                             <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
-                                                <a href="{{ $stream['channel']['url'] }}" >
+                                                <a target="_blank" href="{{ $stream['channel']['url'] }}" >
                                                     <img width="80px" height="80px" src="{{ $stream['channel']['logo'] }}" class="img-thumbnail img-responsive center-block">
                                                 </a>
 
                                             </div>
                                             <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
-                                                <h4>{{ $stream['channel']['display_name'] }}</h4>
+                                                <h4>
+                                                    {{ $stream['channel']['display_name'] }}
+                                                    {!! Form::open(['method' => 'POST', 'action' => 'HomeController@create_post_stream']) !!}
+                                                        {!! Form::text('caption') !!}
+                                                        {!! Form::hidden('stream', json_encode($stream)) !!}
+                                                        {!! Form::submit('Submit here :)') !!}
+                                                    {!! Form::close() !!}
+                                                    <a href="#" class="glyphicon glyphicon-share-alt text-right"></a>
+                                                </h4>
                                                 <p>Playing: {{ $stream['game'] }}</p>
+
                                             </div>
                                         </div>
                                     </li>
