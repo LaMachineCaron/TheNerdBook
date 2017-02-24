@@ -112,8 +112,8 @@
                                     <li class="list-group-item">
                                         <div class="row" style="height: 80px">
                                             <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
-                                                <a target="_blank" href="{{ $stream['channel']['url'] }}" >
-                                                    <img width="80px" height="80px" src="{{ $stream['channel']['logo'] }}" class="img-thumbnail img-responsive center-block">
+                                                <a href="{{ $stream['channel']['url'] }}">
+                                                    <img width="80px" height="80px" src="{{ $stream['channel']['logo'] }}" alt="image_{{ $stream['channel']['display_name'] }}" class="img-thumbnail img-responsive center-block">
                                                 </a>
 
                                             </div>
@@ -123,7 +123,6 @@
                                                     <a href="#" class="glyphicon glyphicon-share-alt text-right"></a>
                                                 </h4>
                                                 <p>Playing: {{ $stream['game'] }}</p>
-
                                             </div>
                                         </div>
                                     </li>

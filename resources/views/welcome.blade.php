@@ -1,5 +1,9 @@
 @extends('navbar')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('/css/welcome.css') }}">
+@endsection
+
 @section('content')
     <div class="panel panel-default" style="border-color: transparent;">
         <div class="panel-heading" style="background-color: transparent; border-color: transparent">
@@ -9,6 +13,7 @@
         <div class="panel-body">
             <div class="col-md-12">
                 <div class="row">
+				
                     <div class="col-md-4">
                         <div class="panel panel-default">
                             <div class="panel-body">
