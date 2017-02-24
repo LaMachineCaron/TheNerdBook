@@ -42,7 +42,7 @@ use TwitchTrait;
 
         if ($this->isLoggedInYoutube()) {
             $this->getSubVideos();
-            $data['videos'] = [];
+            $data['videos'] = $this->getVideos();
         } else {
             $data['youtube_url'] = $this->generateYoutubeUrl();
         }
