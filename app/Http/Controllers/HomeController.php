@@ -89,9 +89,9 @@ use TwitchTrait;
         $post->user_id = Auth::user()->id;
         $post->type = 2;
         $post->caption = $request->input('caption');
-        $post->title = $video['channel']['status'];
-        $post->channel_name = $stream['channel']['name']; //Not using display_name
-        $post->game_title = $stream['game'];
+        $post->title = $video['snippet']['title'];
+        $post->channel_name = $video['snippet']['channelTitle'];
+        $post->url = $video['id']['videoId'];
         if ($post->save()) {
             return redirect()->back()->with('status', 'Le post a été créé.');
         } else {

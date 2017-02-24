@@ -37,6 +37,11 @@
                                         </div>
                                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 video_description">
                                             <h4>{{ $title }}</h4>
+                                            {!! Form::open(['method' => 'POST', 'action' => 'HomeController@create_post_video']) !!}
+                                            {!! Form::text('caption') !!}
+                                            {!! Form::hidden('video', json_encode($video['modelData'])) !!}
+                                            {!! Form::submit('Submit here :)') !!}
+                                            {!! Form::close() !!}
                                             <p>{{ $snippet['channelId'] }} <a href="#" class="glyphicon glyphicon-share-alt text-right"></a> </p>
                                             <p>{{ $snippet['publishedAt'] }}</p>
                                         </div>
