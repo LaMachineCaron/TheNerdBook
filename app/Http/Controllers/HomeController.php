@@ -71,6 +71,23 @@ use TwitchTrait;
         }
     }
 
+    public function create_post_video(Request $request)
+    {
+        $video = json_decode($request->input('video'), true);
+        $post = new Post();
+        $post->user_id = Auth::user()->id;
+        $post->type = 2;
+        $post->caption = $request->input('caption');
+        $post->title = $video['channel']['status'];
+        $post->channel_name = $stream['channel']['name']; //Not using display_name
+        $post->game_title = $stream['game'];
+        if ($post->save()) {
+            return redirect()->back()->with('status', 'Le post a été créé.');
+        } else {
+            return redirect()->back()->withErrors('Erreur de sauvegarde du post.');
+        }
+    }
+
     public function test()
     {
         $input = Request::input('search');
