@@ -9,7 +9,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
 
 class PostLike extends Model
 {
@@ -20,6 +19,6 @@ class PostLike extends Model
     }
 
     public function user(){
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(\App\User::class, 'user_id');
     }
 }

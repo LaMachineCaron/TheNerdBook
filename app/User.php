@@ -2,8 +2,6 @@
 
 namespace App;
 
-use App\Models\CommentLike;
-use App\Models\PostLike;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use phpDocumentor\Reflection\Types\This;
@@ -45,11 +43,11 @@ class User extends Authenticatable
     }
     
 	public function comments() {
-    	return $this->hasMany(Comment::class);
+    	return $this->hasMany(\App\Models\Comment::class);
     }
     
     public function posts() {
-    	return $this->hasMany(Post::class);
+    	return $this->hasMany(\App\Models\Post::class);
     }
 
     public function getAccessTokenYoutube() {
@@ -69,10 +67,10 @@ class User extends Authenticatable
     }
 
     public function comment_like(){
-        return $this->hasMany(CommentLike::class, 'user_id');
+        return $this->hasMany(\App\Models\CommentLike::class, 'user_id');
     }
 
     public function post_like(){
-        return $this->hasMany(PostLike::class, 'user_id');
+        return $this->hasMany(\App\Models\PostLike::class, 'user_id');
     }
 }
