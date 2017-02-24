@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Models\CommentLike;
+use App\Models\PostLike;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use phpDocumentor\Reflection\Types\This;
@@ -11,10 +13,6 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $table = 'users';
-
-    protected $access_token_youtube = null;
-
-    protected $access_token_twitch = null;
     
     /**
      * The attributes that are mass assignable.
@@ -58,7 +56,7 @@ class User extends Authenticatable
         return $this->access_token_youtube;
     }
 
-    public function setAccessTokenYoutube(String $access_token) {
+    public function setAccessTokenYoutube(array $access_token) {
         $this->access_token_youtube = $access_token;
     }
 
@@ -68,5 +66,13 @@ class User extends Authenticatable
 
     public function setAccessTokenTwitch(String $access_token) {
         $this->access_token_twitch = $access_token;
+    }
+
+    public function comment_like(){
+        return $this->hasMany(CommentLike::class, 'user_id');
+    }
+
+    public function post_like(){
+        return $this->hasMany(PostLike::class, 'user_id');
     }
 }

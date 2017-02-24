@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\YoutubeTrait;
 use Auth;
-use Google_Client;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 
 /**
  * Class YoutubeController
@@ -17,6 +16,8 @@ use GuzzleHttp\Client;
  */
 class YoutubeController extends Controller {
 
+	use YoutubeTrait;
+
 	/**
 	 * Callback for the Youtube API
 	 * Authenticates the user and saves his refresh token
@@ -25,15 +26,14 @@ class YoutubeController extends Controller {
 	 * @return \Illuminate\Http\RedirectResponse  Back to where the user was
 	 */
 	public function callback(Request $request) {
-		$client = new Google_Client();
-		$client->setHttpClient(new Client(array(
-			'verify' => false,
-		)));
-		$client->setAuthConfig(public_path('client_secrets.json'));
-		$client->setRedirectUri(route('youtubeCallback'));
-		$client->setAccessType("offline");        // offline access
+		$client = $this->getGoogleClient();
 		$client->authenticate($request->input('code'));
-		Auth::user()->token_youtube = $client->getRefreshToken();
+		$token = $client->getAccessToken();
+		if (isset($token['refresh_token'])) {
+			Auth::user()->refresh_token_youtube = $token['refresh_token'];
+		}
+		unset($token['refresh_token']);
+		Auth::user()->access_token_youtube = json_encode($token);
 		Auth::user()->save();
 		return redirect()->back();
 	}

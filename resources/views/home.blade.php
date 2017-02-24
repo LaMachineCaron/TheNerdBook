@@ -9,7 +9,6 @@
 @endsection
 
 @section('content')
-
     <div id="mobile" class="container-fluid hidden-lg">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
@@ -22,12 +21,7 @@
         <div class="tab-content">
             <div id="youtube-mobile" role="tabpanel" class="tab-pane active col col-xs-12 col-sm-12">
                 <div id="youtube-section" class="panel-body spy-youtube">
-<<<<<<< HEAD
-                    @if (Auth::user()->getAccessTokenYoutube())
-=======
-                    @if (Auth::user()->token_youtube)
-						<p>Logged in</p>
->>>>>>> dev
+                    @if (isset($videos) || Auth::user()->token_youtube)
                         <div id="video_list" >
                             <ul class="list-group">
                                 <li class="list-group-item">
@@ -40,6 +34,7 @@
                                             <p>Pseudo</p>
                                             <p>Il y a 4 sec</p>
                                             <p>Voici une description qui est pas long. Ça fait des cool shit.</p>
+											<a href="#" id="btn-share" class="btn btn-primary btn-lg center">Partager</a>
                                         </div>
                                     </div>
                                 </li>
@@ -84,8 +79,8 @@
                                 </li>
                             </ul>
                         </div>
-                    @else
-                        <a href="{{ $data['youtube_url'] }}" id="btn-youtube-connect" class="btn btn-default btn-lg center">Connexion Youtube</a>
+                    @elseif (isset($youtube_url))
+                        <a href="{{ $youtube_url }}" id="btn-youtube-connect" class="btn btn-default btn-lg center">Connexion Youtube</a>
                     @endif
                 </div>
             </div>
@@ -98,10 +93,41 @@
 
             <div id="twitch-mobile" role="tabpanel" class="tab-pane col-xs-12 col-sm-12">
                 <div id="twitch-section" class="panel-body spy-twitch">
-                    @if (Auth::user()->token_youtube)
+                    @if (isset($streams) || Auth::user()->token_twitch)
+                        <div id="video_list" >
+                            <ul class="list-group">
+                                <?php
+                                $streams = $streams['streams'];
+                                ?>
+                                @foreach($streams as $stream)
+                                    <li class="list-group-item">
+                                        <div class="row" style="height: 80px">
+                                            <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
+                                                <a href="{{ $stream['channel']['url'] }}" >
+                                                    <img width="80px" height="80px" src="{{ $stream['channel']['logo'] }}" class="img-thumbnail img-responsive center-block">
+                                                </a>
 
-                    @else
-                        <a href="#" id="btn-twitch-connect" class="btn btn-default btn-lg center">Connexion Twitch</a>
+                                            </div>
+                                            <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 video_description">
+                                                <h4>
+                                                    {{ $stream['channel']['display_name'] }}
+                                                    {!! Form::open(['method' => 'POST', 'action' => 'HomeController@create_post_stream']) !!}
+                                                        {!! Form::text('caption') !!}
+                                                        {!! Form::hidden('stream', json_encode($stream)) !!}
+                                                        {!! Form::submit('Submit here :)') !!}
+                                                    {!! Form::close() !!}
+                                                    <a href="#" class="glyphicon glyphicon-share-alt text-right"></a>
+                                                </h4>
+                                                <p>Playing: {{ $stream['game'] }}</p>
+
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @elseif (isset($twitch_url))
+						<a href="{{ $twitch_url }}" id="btn-twitch-connect" class="btn btn-default btn-lg center">Connexion Twitch</a>
                     @endif
                 </div>
             </div>

@@ -94,4 +94,20 @@ trait TwitchTrait {
 		// Return body in JSON data
 		return json_decode($response->getBody(), true);
 	}
+
+	private function getFollowedStreams(){
+        $client = $this->getTwitchClient();
+        $auth = new Authentication();
+        $data = [
+            'headers' => [
+                'Client-ID' => $auth->getClientId(),
+                'Accept' => 'application/vnd.twitchtv.v3+json',
+            ],
+        ];
+        $path = $auth->generateUrl('streams/followed', Auth::user()->token_twitch, [], []);
+        $request = new \GuzzleHttp\Psr7\Request('GET', $path, $data);
+        $response = $client->send($request);
+
+        return json_decode($response->getBody(), true);
+    }
 }
