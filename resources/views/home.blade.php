@@ -56,7 +56,7 @@
 								    <div class="modal-content">
 								      <div class="modal-header">
 								        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								        <h4 class="modal-title" id="myModalLabel">Partager la vidéo</h4>
+								        <h4 class="modal-title" id="myModalLabel">Partager la vidï¿½o</h4>
 								      </div>
 								      <div class="modal-body">
 								      	{!! Form::open(['method' => 'POST', 'action' => 'HomeController@create_post_video']) !!}
@@ -100,6 +100,18 @@
 									<p>Jeux: {{$post->game_title}}</p>
 								@endif
 				            </div>
+                            {!! Form::open(['action'=> 'HomeController@create_post_comment', 'method'=>'post']) !!}
+                            <div class="input-group">
+                                {!! Form::text('content', null,
+                                                   array('required',
+                                                        'class'=>'form-control',
+                                                        'placeholder'=>'Commentaire')) !!}
+                                {!! Form::hidden('post_id',$post->id) !!}
+                                <div class="input-group-btn">
+                                    {!! Form::button('Comment',['type' => 'submit', 'class'=>'btn btn-info']) !!}
+                                </div>
+                            </div>
+                            {!! Form::close() !!}
 				        @endforeach
 					</div>
                 </div>

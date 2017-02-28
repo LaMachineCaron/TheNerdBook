@@ -85,6 +85,7 @@ use TwitchTrait;
 
 
     public function create_post_comment(Request $request){
+        //dd($request->all());
         $userId = Auth::user()->id;
         $postId =$request->input('post_id');
         $comment = new Comment();
