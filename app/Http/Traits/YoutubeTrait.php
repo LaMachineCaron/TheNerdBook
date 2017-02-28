@@ -44,6 +44,9 @@ trait YoutubeTrait {
 	public function logoutYoutube() {
 		$client = $this->getAuthenticatedGoogleClient();
 		$client->revokeToken();
+		Auth::user()->access_token_youtube = null;
+		Auth::user()->refresh_token_youtube = null;
+		Auth::user()->save();
 	}
 
 	/**
@@ -58,6 +61,7 @@ trait YoutubeTrait {
 			$refresh_token = Auth::user()->refresh_token_youtube;
 			$new_token = $client->fetchAccessTokenWithRefreshToken($refresh_token);
 			$client->setAccessToken($new_token);
+            unset($new_token['refresh_token']);
 			Auth::user()->access_token_youtube = json_encode($new_token);
 			Auth::user()->save();
 		}

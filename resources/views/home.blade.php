@@ -99,13 +99,20 @@
 									<p>Jeux: {{$post->game_title}}</p>
 								@endif
 								
+								@if ($post->likes->filter(function($item){return $item['user_id']==Auth::user()->id;})->count() == 0)
+                                    <a href="{{ url('like_post/'.$post->id) }}" class="btn btn-primary">Like</a>
+                                @else
+                                    <a href="{{ url('like_post/'.$post->id) }}" class="btn btn-danger">Unlike</a>
+                                @endif
+                                
+                                <p>Nombre de likes : {{count($post->likes)}}</p>
+								
 								@foreach($post->comments as $comment)
-									<div class="input">
+									<div class="message-box">
 										<h4>{{$comment->user->first_name}} {{$comment->user->last_name}}</h4>
 										<div class="message-box">
 											{{$comment->content}}
 										</div>
-										
 									</div>
 								@endforeach
 				            </div>

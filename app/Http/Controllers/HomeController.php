@@ -7,6 +7,7 @@ use App\Http\Traits\TwitchTrait;
 
 use App\Models\Comment;
 use App\Models\Post;
+use App\Models\PostLike;
 use App\User;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
@@ -119,7 +120,7 @@ use TwitchTrait;
         }
     }
 
-
+    
     public function test(Request $request)
     {
         $input = $request->input('search');
@@ -133,6 +134,27 @@ use TwitchTrait;
 
 
         return view('test', compact('foundUsers', 'input'));
+    }
+
+        public function like_post($id)
+    {
+        $post_like = PostLike::where('post_id', $id)->where('user_id', Auth::user()->id)->first();
+        if ($post_like) {
+            $post_like->delete();
+
+            return redirect()->back();
+        } else {
+            $like_post = new PostLike();
+            $like_post->post_id = $id;
+            $like_post->user_id = Auth::user()->id;
+
+            if($like_post->save()){
+                return redirect()->back();
+            } else {
+                return redirect()->back()->withErrors('Erreur de sauvegarde du like.');
+            }
+        }
+
     }
 
 }
