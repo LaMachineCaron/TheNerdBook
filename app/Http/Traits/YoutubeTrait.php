@@ -94,13 +94,6 @@ trait YoutubeTrait {
 	}
 
 	/**
-	* Get the videos from your subs
-	*/
-	public function getSubVideos() {
-		$this->getVideoActivities();
-	}
-
-	/**
 	* Get an array of your sub id
 	*/
 	private function getSubId($youtube) {
@@ -121,32 +114,33 @@ trait YoutubeTrait {
         $client = $this->getAuthenticatedGoogleClient();
         $youtube = new Google_Service_YouTube($client);
         $subscriptions = $this->getSubId($youtube);
-        $videoIds = [];
+        $videoActivities = [];
         $videos = [];
         foreach ($subscriptions as $subscription) {
-            $response = $youtube->activities->listActivities('contentDetails',
-                ['channelId' => $subscription, 'maxResults' => 5]);
+            $response = $youtube->activities->listActivities('contentDetails,snippet',
+                ['channelId' => $subscription, 'maxResults' => 10]);
             foreach($response->getItems() as $item) {
-                if (isset($item['upload'])) {
-                    $videoIds[] = $item->contentDetails['upload']['videoId'];
+                if (isset($item->contentDetails['upload'])) {
+                    $videoActivities[] = $item;
                 }
             }
         }
-        foreach ($videoIds as $videoId) {
-            $response = $youtube->videos->listVideos('snippet', ['id' => $videoId, 'maxResults' => 1]);
+        usort($videoActivities, function($a, $b)
+        {
+            if ($a['snippet']['publishedAt'] == $b['snippet']['publishedAt']) {
+                return 0;
+            }
+            return ($a['snippet']['publishedAt'] > $b['snippet']['publishedAt']) ? -1 : 1;
+        });
+        foreach (array_slice($videoActivities, 0, 10) as $videoActivity) {
+            $response = $youtube->videos->listVideos('snippet',
+                ['id' => $videoActivity->contentDetails['upload']['videoId'], 'maxResults' => 1]);
             foreach ($response->getItems() as $item) {
                 $tempItem = $item['snippet'];
                 $tempItem['videoId'] = $item->id;
                 $videos[] = $tempItem;
             }
         }
-        usort($videos, function($a, $b)
-        {
-            if ($a['publishedAt'] == $b['publishedAt']) {
-                return 0;
-            }
-            return ($a['publishedAt'] > $b['publishedAt']) ? -1 : 1;
-        });
         return $videos;
     }
 }
