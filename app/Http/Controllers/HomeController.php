@@ -41,8 +41,7 @@ use TwitchTrait;
         $user = Auth::user();
 
         if ($this->isLoggedInYoutube()) {
-            $this->getSubVideos();
-            $data['videos'] = $this->getVideos();
+            $data['videos'] = $this->getVideoActivities();
         } else {
             $data['youtube_url'] = $this->generateYoutubeUrl();
         }

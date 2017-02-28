@@ -26,44 +26,43 @@
                             <ul class="list-group">
                                 @foreach($videos as $video)
                                     <?php
-                                        $snippet = $video['modelData']['snippet'];
-                                        $title = $snippet['title'];
-                                        $thumbnail = $snippet['thumbnails']['default'];
+                                        $title = $video['title'];
+                                        $thumbnail = $video['modelData']['thumbnails']['default'];
                                 ?>
                                 <li class="list-group-item">
                                     <div class="row" style="height: 140px">
                                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                            <img width="{{ $thumbnail['width'] }}" height="{{ $thumbnail['height'] }}" src="{{ $thumbnail['url'] }}" class="img-thumbnail img-responsive center-block">
+                                            <a target="_blank" href="https://www.youtube.com/watch?v={{ $video['modelData']['videoId'] }}">
+                                                <img width="{{ $thumbnail['width'] }}" height="{{ $thumbnail['height'] }}" src="{{ $thumbnail['url'] }}" class="img-thumbnail img-responsive center-block">
+                                            </a>
                                         </div>
                                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 video_description">
                                             <h4>{{ $title }}</h4>
 
                                             
-                                            <p>{{ $snippet['channelId'] }}  
+                                            <p>{{ $video['channelTitle'] }}  
                                             
                                             <!-- Button trigger modal -->
 											<a href="#" class="glyphicon glyphicon-share-alt text-right" data-toggle="modal" data-target="#modal_{{$video['modeldata']['id']['videoId']}}"></a> 
 											
 											</p>
-                                            <p>{{ $snippet['publishedAt'] }}</p>
+                                            <p>{{ $video['publishedAt'] }}</p>
                                         </div>
                                     </div>
                                 </li>
                                 
                                 <!-- Modal -->
-								<div class="modal fade" id="modal_{{$video['modeldata']['id']['videoId']}}" tabindex="-1" role="dialog" aria-labelledby="modal_{{$video['modeldata']['id']['videoId']}}">
+								<div class="modal fade" id="modal_{{$video['modeldata']['videoId']}}" tabindex="-1" role="dialog" aria-labelledby="modal_{{$video['modeldata']['videoId']}}">
 								  <div class="modal-dialog" role="document">
 								    <div class="modal-content">
 								      <div class="modal-header">
 								        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								        <h4 class="modal-title" id="myModalLabel">Partager la vidéo</h4>
+								        <h4 class="modal-title">Partager la vidéo</h4>
 								      </div>
 								      <div class="modal-body">
 								      	{!! Form::open(['method' => 'POST', 'action' => 'HomeController@create_post_video']) !!}
                                             {!! Form::text('caption') !!}
-                                            {!! Form::hidden('video', json_encode($video['modelData'])) !!}
-                                            
-                                        
+                                            {!! Form::hidden('video', json_encode($video)) !!}
 								      </div>
 								      <div class="modal-footer">
 								        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -117,7 +116,7 @@
                                     <li class="list-group-item">
                                         <div class="row" style="height: 80px">
                                             <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
-                                                <a href="{{ $stream['channel']['url'] }}">
+                                                <a target="_blank" href="{{ $stream['channel']['url'] }}">
                                                     <img width="80px" height="80px" src="{{ $stream['channel']['logo'] }}" alt="image_{{ $stream['channel']['display_name'] }}" class="img-thumbnail img-responsive center-block">
                                                 </a>
 
@@ -128,6 +127,7 @@
                                                     <a href="#" class="glyphicon glyphicon-share-alt text-right" data-toggle="modal" data-target="#modal_{{$stream['_id']}}"></a>
                                                 </h4>
                                                 <p>Playing: {{ $stream['game'] }}</p>
+                                                <p>Vues: {{ $stream['viewers']}}</p>
                                             </div>
                                         </div>
                                     </li>
