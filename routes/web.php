@@ -43,4 +43,6 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/youtube/callback', 'YoutubeController@callback')->name('youtubeCallback');
 	Route::get('/twitch/callback','TwitchController@callback')->name('twitchCallback');
     Route::get('/test', 'HomeController@test');
+    Route::get('/profil', 'ProfilController@index');
+    Route::post('/profil', 'ProfilController@update');
 });
