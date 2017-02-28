@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Traits\YoutubeTrait;
 use App\Http\Traits\TwitchTrait;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\User;
 use GuzzleHttp\Exception\ClientException;
@@ -82,9 +83,24 @@ use TwitchTrait;
         }
     }
 
-    public function test()
+    public function create_post_comment(Request $request){
+        $userId = Auth::user()->id;
+        $postId =$request->input('post_id');
+        $comment = new Comment();
+        $comment->post_id = $postId;
+        $comment->user_id = $userId;
+        $comment->content = $request->input('content');
+        if ($comment->save()){
+            return redirect()->back()->with('status', 'Le comment a été créé.');
+        }else{
+            return redirect()->back()->withErrors('Erreur de sauvegarde du comment.');
+        }
+
+}
+
+    public function test(Request $request)
     {
-        $input = Request::input('search');
+        $input = $request->input('search');
 
         $users = User::all();
 
