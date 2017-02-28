@@ -101,7 +101,7 @@ trait YoutubeTrait {
         $nextPage = null;
         do {
             $response = $youtube->subscriptions->listSubscriptions('snippet',
-                ['mine' => true, 'maxResults' => 50, 'pageToken' => $nextPage]);
+                ['mine' => true, 'maxResults' => 5, 'pageToken' => $nextPage]);
             foreach ($response->getItems() as $item) {
                 $subscriptions[] = $item->snippet['resourceId']['channelId'];
             }
@@ -118,7 +118,7 @@ trait YoutubeTrait {
         $videos = [];
         foreach ($subscriptions as $subscription) {
             $response = $youtube->activities->listActivities('contentDetails,snippet',
-                ['channelId' => $subscription, 'maxResults' => 10]);
+                ['channelId' => $subscription, 'maxResults' => 2]);
             foreach($response->getItems() as $item) {
                 if (isset($item->contentDetails['upload'])) {
                     $videoActivities[] = $item;

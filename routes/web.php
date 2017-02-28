@@ -43,4 +43,5 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/youtube/callback', 'YoutubeController@callback')->name('youtubeCallback');
 	Route::get('/twitch/callback','TwitchController@callback')->name('twitchCallback');
     Route::get('/test', 'HomeController@test');
+    Route::post('/post/comment','HomeController@create_post_comment');
 });

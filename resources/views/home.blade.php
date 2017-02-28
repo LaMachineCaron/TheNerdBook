@@ -98,7 +98,29 @@
 								@elseif ($post->type == 2)
 									<p>Jeux: {{$post->game_title}}</p>
 								@endif
+								
+								@foreach($post->comments as $comment)
+									<div class="input">
+										<h4>{{$comment->user->first_name}} {{$comment->user->last_name}}</h4>
+										<div class="message-box">
+											{{$comment->content}}
+										</div>
+										
+									</div>
+								@endforeach
 				            </div>
+                            {!! Form::open(['action'=> 'HomeController@create_post_comment', 'method'=>'post']) !!}
+                            <div class="input-group">
+                                {!! Form::text('content', null,
+                                                   array('required',
+                                                        'class'=>'form-control',
+                                                        'placeholder'=>'Commentaire')) !!}
+                                {!! Form::hidden('post_id',$post->id) !!}
+                                <div class="input-group-btn">
+                                    {!! Form::button('Comment',['type' => 'submit', 'class'=>'btn btn-info']) !!}
+                                </div>
+                            </div>
+                            {!! Form::close() !!}
 				        @endforeach
 					</div>
                 </div>
@@ -143,7 +165,8 @@
 									      <div class="modal-body">
 									      	{!! Form::open(['method' => 'POST', 'action' => 'HomeController@create_post_stream']) !!}
 	                                            {!! Form::text('caption') !!}
-	                                            {!! Form::hidden('video', json_encode($stream)) !!}
+	                                            
+	                                            {!! Form::hidden('stream', json_encode($stream)) !!}
 									      </div>
 									      <div class="modal-footer">
 									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -192,26 +215,3 @@
 
 @endsection
 
-
-
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Traits\YoutubeTrait;
 use App\Http\Traits\TwitchTrait;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\User;
 use GuzzleHttp\Exception\ClientException;
@@ -55,6 +56,7 @@ use TwitchTrait;
         $posts = Post::With('comments.likes', 'likes')
             ->WhereIn('user_id', $user->following()
                 ->pluck('id'))
+                ->orWhere('user_id', $user->id)
             ->orderBy('created_at', 'desc')
             ->limit($postPerPage)
             ->offset((($page - 1) * $postPerPage))
@@ -81,6 +83,25 @@ use TwitchTrait;
         }
     }
 
+
+    public function create_post_comment(Request $request){
+        //dd($request->all());
+        $userId = Auth::user()->id;
+        $postId =$request->input('post_id');
+        $comment = new Comment();
+        $comment->post_id = $postId;
+        $comment->user_id = $userId;
+        $comment->content = $request->input('content');
+        if ($comment->save()){
+            return redirect()->back()->with('status', 'Le comment a été créé.');
+        }else{
+            return redirect()->back()->withErrors('Erreur de sauvegarde du comment.');
+        }
+
+}
+
+
+
     public function create_post_video(Request $request)
     {
         $video = json_decode($request->input('video'), true);
@@ -98,9 +119,10 @@ use TwitchTrait;
         }
     }
 
-    public function test()
+
+    public function test(Request $request)
     {
-        $input = Request::input('search');
+        $input = $request->input('search');
 
         $users = User::all();
 
