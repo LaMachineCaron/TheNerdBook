@@ -83,6 +83,7 @@ use TwitchTrait;
         }
     }
 
+
     public function create_post_comment(Request $request){
         $userId = Auth::user()->id;
         $postId =$request->input('post_id');
@@ -97,6 +98,26 @@ use TwitchTrait;
         }
 
 }
+
+
+
+    public function create_post_video(Request $request)
+    {
+        $video = json_decode($request->input('video'), true);
+        $post = new Post();
+        $post->user_id = Auth::user()->id;
+        $post->type = 2;
+        $post->caption = $request->input('caption');
+        $post->title = $video['snippet']['title'];
+        $post->channel_name = $video['snippet']['channelTitle'];
+        $post->url = $video['id']['videoId'];
+        if ($post->save()) {
+            return redirect()->back()->with('status', 'Le post a été créé.');
+        } else {
+            return redirect()->back()->withErrors('Erreur de sauvegarde du post.');
+        }
+    }
+
 
     public function test(Request $request)
     {
