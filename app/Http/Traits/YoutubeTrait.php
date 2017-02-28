@@ -44,9 +44,6 @@ trait YoutubeTrait {
 	public function logoutYoutube() {
 		$client = $this->getAuthenticatedGoogleClient();
 		$client->revokeToken();
-		Auth::user()->access_token_youtube = null;
-		Auth::user()->refresh_token_youtube = null;
-		Auth::user()->save();
 	}
 
 	/**
@@ -61,7 +58,6 @@ trait YoutubeTrait {
 			$refresh_token = Auth::user()->refresh_token_youtube;
 			$new_token = $client->fetchAccessTokenWithRefreshToken($refresh_token);
 			$client->setAccessToken($new_token);
-            unset($new_token['refresh_token']);
 			Auth::user()->access_token_youtube = json_encode($new_token);
 			Auth::user()->save();
 		}
@@ -105,7 +101,7 @@ trait YoutubeTrait {
         $nextPage = null;
         do {
             $response = $youtube->subscriptions->listSubscriptions('snippet',
-                ['mine' => true, 'maxResults' => 5, 'pageToken' => $nextPage]);
+                ['mine' => true, 'maxResults' => 50, 'pageToken' => $nextPage]);
             foreach ($response->getItems() as $item) {
                 $subscriptions[] = $item->snippet['resourceId']['channelId'];
             }
@@ -122,7 +118,7 @@ trait YoutubeTrait {
         $videos = [];
         foreach ($subscriptions as $subscription) {
             $response = $youtube->activities->listActivities('contentDetails,snippet',
-                ['channelId' => $subscription, 'maxResults' => 2]);
+                ['channelId' => $subscription, 'maxResults' => 10]);
             foreach($response->getItems() as $item) {
                 if (isset($item->contentDetails['upload'])) {
                     $videoActivities[] = $item;
