@@ -20,23 +20,4 @@ class PostTest extends TestCase
     {
         $this->assertTrue(Schema::hasTable('posts'), "'posts' table didn't exist.");
     }
-
-    /**
-     * Check if it's possible to save a post model in the database.
-     *
-     * @test
-     */
-    public function save_post_model()
-    {
-        $post = new Post;
-        $post->user_id = 1;
-        $post->content = "Ce vidéo est trop cool!!!";
-        $post->url = "https://www.youtube.com";
-        $this->assertTrue($post->save());
-        $this->assertDatabaseHas('posts', [
-            'user_id' => $post->user_id,
-            'content' => $post->content,
-            'url' => $post->url,
-        ]);
-    }
 }
