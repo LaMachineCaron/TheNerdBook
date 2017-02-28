@@ -45,4 +45,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/test', 'HomeController@test');
     Route::get('like_post/{id}', 'HomeController@like_post');
     Route::post('/post/comment','HomeController@create_post_comment');
+    Route::get('/profil', 'ProfilController@index');
+    Route::post('/profil', 'ProfilController@update');
 });

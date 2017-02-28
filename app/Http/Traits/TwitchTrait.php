@@ -36,6 +36,14 @@ trait TwitchTrait {
 		return Auth::user()->token_twitch !== null;
 	}
 
+    /**
+     * Logout from Twitch
+     */
+    public function logoutTwitch() {
+        Auth::user()->token_twitch = null;
+        Auth::user()->save();
+    }
+
 	/**
 	 * Return the Twitch API access token
 	 *
