@@ -94,31 +94,52 @@ trait YoutubeTrait {
 	}
 
 	/**
-	* Get the videos from your subs
-	*/
-	public function getSubVideos() {
-		$this->getVideos();
-	}
-
-	/**
 	* Get an array of your sub id
 	*/
 	private function getSubId($youtube) {
-        //TODO: Change maxResult to handle if user has more than 50 subs.
         $subscriptions = [];
-        $response = $youtube->subscriptions->listSubscriptions('snippet', ['mine' => true, 'maxResults' => 2]);
-        $subscriptions = array_merge($subscriptions, array_map(function ($item) {return $item->snippet['resourceId']['channelId'];}, $response->getItems()));
+        $nextPage = null;
+        do {
+            $response = $youtube->subscriptions->listSubscriptions('snippet',
+                ['mine' => true, 'maxResults' => 50, 'pageToken' => $nextPage]);
+            foreach ($response->getItems() as $item) {
+                $subscriptions[] = $item->snippet['resourceId']['channelId'];
+            }
+            $nextPage = $response['nextPageToken'];
+        } while($response['nextPageToken']);
         return $subscriptions;
 	}
 
-	public function getVideos() {
+    public function getVideoActivities() {
         $client = $this->getAuthenticatedGoogleClient();
         $youtube = new Google_Service_YouTube($client);
         $subscriptions = $this->getSubId($youtube);
+        $videoActivities = [];
         $videos = [];
         foreach ($subscriptions as $subscription) {
-            $response = $youtube->search->listSearch('snippet', ['channelId' => $subscription, 'maxResults' => 2]);
-            $videos = array_merge($videos, $response->getItems());
+            $response = $youtube->activities->listActivities('contentDetails,snippet',
+                ['channelId' => $subscription, 'maxResults' => 10]);
+            foreach($response->getItems() as $item) {
+                if (isset($item->contentDetails['upload'])) {
+                    $videoActivities[] = $item;
+                }
+            }
+        }
+        usort($videoActivities, function($a, $b)
+        {
+            if ($a['snippet']['publishedAt'] == $b['snippet']['publishedAt']) {
+                return 0;
+            }
+            return ($a['snippet']['publishedAt'] > $b['snippet']['publishedAt']) ? -1 : 1;
+        });
+        foreach (array_slice($videoActivities, 0, 10) as $videoActivity) {
+            $response = $youtube->videos->listVideos('snippet',
+                ['id' => $videoActivity->contentDetails['upload']['videoId'], 'maxResults' => 1]);
+            foreach ($response->getItems() as $item) {
+                $tempItem = $item['snippet'];
+                $tempItem['videoId'] = $item->id;
+                $videos[] = $tempItem;
+            }
         }
         return $videos;
     }

@@ -108,6 +108,18 @@
 
                                 <p>Nombre de likes : {{count($post->likes)}}</p>
 				            </div>
+                            {!! Form::open(['action'=> 'HomeController@create_post_comment', 'method'=>'post']) !!}
+                            <div class="input-group">
+                                {!! Form::text('content', null,
+                                                   array('required',
+                                                        'class'=>'form-control',
+                                                        'placeholder'=>'Commentaire')) !!}
+                                {!! Form::hidden('post_id',$post->id) !!}
+                                <div class="input-group-btn">
+                                    {!! Form::button('Comment',['type' => 'submit', 'class'=>'btn btn-info']) !!}
+                                </div>
+                            </div>
+                            {!! Form::close() !!}
 				        @endforeach
 					</div>
                 </div>
