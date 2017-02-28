@@ -127,7 +127,7 @@
                                                     <a href="#" class="glyphicon glyphicon-share-alt text-right" data-toggle="modal" data-target="#modal_{{$stream['_id']}}"></a>
                                                 </h4>
                                                 <p>Playing: {{ $stream['game'] }}</p>
-                                                <p>Vues: {{ $stream['viewers']}}</p>
+                                                <p>Viewers: {{ $stream['viewers']}}</p>
                                             </div>
                                         </div>
                                     </li>
@@ -144,8 +144,6 @@
 									      	{!! Form::open(['method' => 'POST', 'action' => 'HomeController@create_post_stream']) !!}
 	                                            {!! Form::text('caption') !!}
 	                                            {!! Form::hidden('video', json_encode($stream)) !!}
-	                                            
-	                                        
 									      </div>
 									      <div class="modal-footer">
 									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
