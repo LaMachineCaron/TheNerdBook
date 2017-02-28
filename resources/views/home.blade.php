@@ -56,7 +56,7 @@
 								    <div class="modal-content">
 								      <div class="modal-header">
 								        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								        <h4 class="modal-title" id="myModalLabel">Partager la vidéo</h4>
+								        <h4 class="modal-title" id="myModalLabel">Partager la vidï¿½o</h4>
 								      </div>
 								      <div class="modal-body">
 								      	{!! Form::open(['method' => 'POST', 'action' => 'HomeController@create_post_video']) !!}
@@ -99,6 +99,14 @@
 								@elseif ($post->type == 2)
 									<p>Jeux: {{$post->game_title}}</p>
 								@endif
+
+                                @if ($post->likes->filter(function($item){return $item['user_id']==Auth::user()->id;})->count() == 0)
+                                    <a href="{{ url('like_post/'.$post->id) }}" class="btn btn-primary">Like</a>
+                                @else
+                                    <a href="{{ url('like_post/'.$post->id) }}" class="btn btn-danger">Unlike</a>
+                                @endif
+
+                                <p>Nombre de likes : {{count($post->likes)}}</p>
 				            </div>
 				        @endforeach
 					</div>

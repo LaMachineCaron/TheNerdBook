@@ -27,9 +27,7 @@ class CreatePostLikesTable extends Migration
                 ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->string('content');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
